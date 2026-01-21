@@ -3,6 +3,9 @@ import { APP_FILTER } from '@nestjs/core';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from './config/config.module';
 import { ApigeeModule } from './apigee/apigee.module';
+import { EntitiesModule } from './entities/entities.module';
+import { CompareModule } from './compare/compare.module';
+import { RefreshModule } from './refresh/refresh.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 @Module({
@@ -10,6 +13,9 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
     DatabaseModule,
     ConfigModule,
     ApigeeModule,
+    EntitiesModule,
+    CompareModule,
+    RefreshModule,
   ],
   providers: [
     {

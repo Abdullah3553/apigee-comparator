@@ -87,19 +87,19 @@
 
 ### Backend Implementation for US1
 
-- [ ] T037 [US1] Create ConfigController with GET /api/config endpoint in backend/src/config/config.controller.ts
-- [ ] T038 [US1] Add GET /api/environments endpoint to ConfigController in backend/src/config/config.controller.ts
-- [ ] T039 [US1] Add GET /api/environments/:identifier endpoint to ConfigController in backend/src/config/config.controller.ts
-- [ ] T040 [US1] Implement environment seeding from YAML config on startup in backend/src/config/config.service.ts
+- [X] T037 [US1] Create ConfigController with GET /api/config endpoint in backend/src/config/config.controller.ts
+- [X] T038 [US1] Add GET /api/environments endpoint to ConfigController in backend/src/config/config.controller.ts
+- [X] T039 [US1] Add GET /api/environments/:identifier endpoint to ConfigController in backend/src/config/config.controller.ts
+- [X] T040 [US1] Implement environment seeding from YAML config on startup in backend/src/config/config.service.ts
 
 ### Frontend Implementation for US1
 
-- [ ] T041 [US1] Create useEnvironments hook with TanStack Query in frontend/src/hooks/useEnvironments.ts
-- [ ] T042 [US1] Create EnvSelector component with cascading dropdown in frontend/src/components/EnvSelector/EnvSelector.tsx
-- [ ] T043 [P] [US1] Create EnvSelector styles in frontend/src/components/EnvSelector/EnvSelector.css
-- [ ] T044 [US1] Create NavBar component with two EnvSelector instances in frontend/src/components/NavBar/NavBar.tsx
-- [ ] T045 [US1] Create environment context for selected environments in frontend/src/contexts/EnvironmentContext.tsx
-- [ ] T046 [US1] Integrate NavBar and EnvironmentContext in App.tsx
+- [X] T041 [US1] Create useEnvironments hook with TanStack Query in frontend/src/hooks/useEnvironments.ts
+- [X] T042 [US1] Create EnvSelector component with cascading dropdown in frontend/src/components/EnvSelector/EnvSelector.tsx
+- [X] T043 [P] [US1] Create EnvSelector styles in frontend/src/components/EnvSelector/EnvSelector.css
+- [X] T044 [US1] Create NavBar component with two EnvSelector instances in frontend/src/components/NavBar/NavBar.tsx
+- [X] T045 [US1] Create environment context for selected environments in frontend/src/contexts/EnvironmentContext.tsx
+- [X] T046 [US1] Integrate NavBar and EnvironmentContext in App.tsx
 
 **Checkpoint**: User Story 1 complete - can select two environments and see identifiers in nav bar
 
@@ -113,23 +113,23 @@
 
 ### Backend Implementation for US2
 
-- [ ] T047 [US2] Create EntitiesService with getByEnvironment method in backend/src/entities/entities.service.ts
-- [ ] T048 [US2] Create EntitiesController with GET /api/entities/:identifier/:entityType in backend/src/entities/entities.controller.ts
-- [ ] T049 [US2] Create EntitiesModule in backend/src/entities/entities.module.ts
-- [ ] T050 [US2] Create CompareService with comparison algorithm (name-based matching) in backend/src/compare/compare.service.ts
-- [ ] T051 [US2] Implement deep comparison logic for JSONB fields in backend/src/compare/compare.service.ts
-- [ ] T052 [US2] Create CompareController with GET /api/compare endpoint in backend/src/compare/compare.controller.ts
-- [ ] T053 [US2] Create CompareModule in backend/src/compare/compare.module.ts
+- [X] T047 [US2] Create EntitiesService with getByEnvironment method in backend/src/entities/entities.service.ts
+- [X] T048 [US2] Create EntitiesController with GET /api/entities/:identifier/:entityType in backend/src/entities/entities.controller.ts
+- [X] T049 [US2] Create EntitiesModule in backend/src/entities/entities.module.ts
+- [X] T050 [US2] Create CompareService with comparison algorithm (name-based matching) in backend/src/compare/compare.service.ts
+- [X] T051 [US2] Implement deep comparison logic for JSONB fields in backend/src/compare/compare.service.ts
+- [X] T052 [US2] Create CompareController with GET /api/compare endpoint in backend/src/compare/compare.controller.ts
+- [X] T053 [US2] Create CompareModule in backend/src/compare/compare.module.ts
 
 ### Frontend Implementation for US2
 
-- [ ] T054 [US2] Create comparison utilities (diff detection, status calculation) in frontend/src/utils/comparison.utils.ts
-- [ ] T055 [US2] Create useComparison hook with TanStack Query in frontend/src/hooks/useComparison.ts
-- [ ] T056 [US2] Create ComparisonRow component with status indicators in frontend/src/components/ComparisonView/ComparisonRow.tsx
-- [ ] T057 [US2] Create ComparisonView component with side-by-side panels in frontend/src/components/ComparisonView/ComparisonView.tsx
-- [ ] T058 [P] [US2] Create status indicator components (MatchedIcon, DifferentIcon, MissingIcon) in frontend/src/components/common/StatusIcons.tsx
-- [ ] T059 [US2] Create comparison summary component showing counts in frontend/src/components/ComparisonView/ComparisonSummary.tsx
-- [ ] T060 [US2] Integrate ComparisonView with selected environments in App.tsx
+- [X] T054 [US2] Create comparison utilities (diff detection, status calculation) in frontend/src/utils/comparison.utils.ts
+- [X] T055 [US2] Create useComparison hook with TanStack Query in frontend/src/hooks/useComparison.ts
+- [X] T056 [US2] Create ComparisonRow component with status indicators in frontend/src/components/ComparisonView/ComparisonRow.tsx
+- [X] T057 [US2] Create ComparisonView component with side-by-side panels in frontend/src/components/ComparisonView/ComparisonView.tsx
+- [X] T058 [P] [US2] Create status indicator components (MatchedIcon, DifferentIcon, MissingIcon) in frontend/src/components/common/StatusIcons.tsx
+- [X] T059 [US2] Create comparison summary component showing counts in frontend/src/components/ComparisonView/ComparisonSummary.tsx
+- [X] T060 [US2] Integrate ComparisonView with selected environments in App.tsx
 
 **Checkpoint**: User Story 2 complete - can view comparison results with correct visual indicators
 
@@ -143,20 +143,20 @@
 
 ### Backend Implementation for US3
 
-- [ ] T061 [US3] Create RefreshService with parallel refresh using Promise.allSettled in backend/src/refresh/refresh.service.ts
-- [ ] T062 [US3] Implement fetchAllEntities for single environment in backend/src/refresh/refresh.service.ts
-- [ ] T063 [US3] Add entity upsert logic (clear old + insert new) in backend/src/refresh/refresh.service.ts
-- [ ] T064 [US3] Create RefreshController with POST /api/refresh endpoint in backend/src/refresh/refresh.controller.ts
-- [ ] T065 [US3] Add POST /api/refresh/:identifier for single environment refresh in backend/src/refresh/refresh.controller.ts
-- [ ] T066 [US3] Create RefreshModule in backend/src/refresh/refresh.module.ts
+- [X] T061 [US3] Create RefreshService with parallel refresh using Promise.allSettled in backend/src/refresh/refresh.service.ts
+- [X] T062 [US3] Implement fetchAllEntities for single environment in backend/src/refresh/refresh.service.ts
+- [X] T063 [US3] Add entity upsert logic (clear old + insert new) in backend/src/refresh/refresh.service.ts
+- [X] T064 [US3] Create RefreshController with POST /api/refresh endpoint in backend/src/refresh/refresh.controller.ts
+- [X] T065 [US3] Add POST /api/refresh/:identifier for single environment refresh in backend/src/refresh/refresh.controller.ts
+- [X] T066 [US3] Create RefreshModule in backend/src/refresh/refresh.module.ts
 
 ### Frontend Implementation for US3
 
-- [ ] T067 [US3] Create useRefresh hook with mutation in frontend/src/hooks/useRefresh.ts
-- [ ] T068 [US3] Create RefreshButton component with loading state in frontend/src/components/NavBar/RefreshButton.tsx
-- [ ] T069 [US3] Create RefreshSummary modal/toast showing results in frontend/src/components/common/RefreshSummary.tsx
-- [ ] T070 [US3] Add last-refreshed timestamp display to environment details in frontend/src/components/EnvSelector/EnvSelector.tsx
-- [ ] T071 [US3] Integrate RefreshButton in NavBar in frontend/src/components/NavBar/NavBar.tsx
+- [X] T067 [US3] Create useRefresh hook with mutation in frontend/src/hooks/useRefresh.ts
+- [X] T068 [US3] Create RefreshButton component with loading state in frontend/src/components/NavBar/RefreshButton.tsx
+- [X] T069 [US3] Create RefreshSummary modal/toast showing results in frontend/src/components/common/RefreshSummary.tsx
+- [X] T070 [US3] Add last-refreshed timestamp display to environment details in frontend/src/components/EnvSelector/EnvSelector.tsx
+- [X] T071 [US3] Integrate RefreshButton in NavBar in frontend/src/components/NavBar/NavBar.tsx
 
 **Checkpoint**: User Story 3 complete - can refresh data with progress and partial failure handling
 
@@ -170,11 +170,11 @@
 
 ### Frontend Implementation for US4
 
-- [ ] T072 [US4] Create EntityTypeSelector component with dropdown in frontend/src/components/EntityTypeSelector/EntityTypeSelector.tsx
-- [ ] T073 [US4] Add entity type to environment context in frontend/src/contexts/EnvironmentContext.tsx
-- [ ] T074 [US4] Integrate EntityTypeSelector in NavBar in frontend/src/components/NavBar/NavBar.tsx
-- [ ] T075 [US4] Update ComparisonView to use selected entity type in frontend/src/components/ComparisonView/ComparisonView.tsx
-- [ ] T076 [US4] Update useComparison to include entityType parameter in frontend/src/hooks/useComparison.ts
+- [X] T072 [US4] Create EntityTypeSelector component with dropdown in frontend/src/components/EntityTypeSelector/EntityTypeSelector.tsx
+- [X] T073 [US4] Add entity type to environment context in frontend/src/contexts/EnvironmentContext.tsx
+- [X] T074 [US4] Integrate EntityTypeSelector in NavBar in frontend/src/components/NavBar/NavBar.tsx
+- [X] T075 [US4] Update ComparisonView to use selected entity type in frontend/src/components/ComparisonView/ComparisonView.tsx
+- [X] T076 [US4] Update useComparison to include entityType parameter in frontend/src/hooks/useComparison.ts
 
 **Checkpoint**: User Story 4 complete - can switch between 9 entity types
 
@@ -188,18 +188,18 @@
 
 ### Backend Implementation for US5
 
-- [ ] T077 [US5] Add GET /api/entities/:identifier/kvms/:name/entries endpoint in backend/src/entities/entities.controller.ts
-- [ ] T078 [US5] Add GET /api/entities/:identifier/keystores/:name/certificates endpoint in backend/src/entities/entities.controller.ts
-- [ ] T079 [US5] Implement nested data retrieval methods in backend/src/entities/entities.service.ts
+- [X] T077 [US5] Add GET /api/entities/:identifier/kvms/:name/entries endpoint in backend/src/entities/entities.controller.ts
+- [X] T078 [US5] Add GET /api/entities/:identifier/keystores/:name/certificates endpoint in backend/src/entities/entities.controller.ts
+- [X] T079 [US5] Implement nested data retrieval methods in backend/src/entities/entities.service.ts
 
 ### Frontend Implementation for US5
 
-- [ ] T080 [US5] Create EntityDetails expandable component in frontend/src/components/EntityDetails/EntityDetails.tsx
-- [ ] T081 [P] [US5] Create KvmDetails component for key-value entries in frontend/src/components/EntityDetails/KvmDetails.tsx
-- [ ] T082 [P] [US5] Create KeystoreDetails component for certificates in frontend/src/components/EntityDetails/KeystoreDetails.tsx
-- [ ] T083 [P] [US5] Create AppDetails component for credentials in frontend/src/components/EntityDetails/AppDetails.tsx
-- [ ] T084 [US5] Create DiffHighlight component for highlighting differences in frontend/src/components/common/DiffHighlight.tsx
-- [ ] T085 [US5] Integrate EntityDetails in ComparisonRow with expand/collapse in frontend/src/components/ComparisonView/ComparisonRow.tsx
+- [X] T080 [US5] Create EntityDetails expandable component in frontend/src/components/EntityDetails/EntityDetails.tsx
+- [X] T081 [P] [US5] Create KvmDetails component for key-value entries in frontend/src/components/EntityDetails/KvmDetails.tsx
+- [X] T082 [P] [US5] Create KeystoreDetails component for certificates in frontend/src/components/EntityDetails/KeystoreDetails.tsx
+- [X] T083 [P] [US5] Create AppDetails component for credentials in frontend/src/components/EntityDetails/AppDetails.tsx
+- [X] T084 [US5] Create DiffHighlight component for highlighting differences in frontend/src/components/common/DiffHighlight.tsx
+- [X] T085 [US5] Integrate EntityDetails in ComparisonRow with expand/collapse in frontend/src/components/ComparisonView/ComparisonRow.tsx
 
 **Checkpoint**: User Story 5 complete - can drill down into nested entity data
 

@@ -2,7 +2,20 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit - fresh start\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit - fresh start\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(npm init:*)",
+      "Bash(chmod:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd Apigee Monitor Dashboard foundation \\(Phases 1-2\\)\n\nImplement complete project foundation for comparing Apigee configurations\nacross environments. This establishes the core architecture and infrastructure\nneeded for the comparison dashboard feature.\n\nBackend \\(NestJS\\):\n- TypeORM entities for 11 Apigee resource types \\(apps, proxies, products, etc.\\)\n- PostgreSQL database with proper relationships and indexes\n- YAML-based configuration with environment variable interpolation\n- Apigee Management API client service\n- Config endpoints for topology and environment data\n- Global exception handling and Swagger documentation\n\nFrontend \\(React/Vite\\):\n- TanStack Query setup with sensible caching defaults\n- TypeScript types for environments, entities, and comparisons\n- Axios API client with error interceptor\n- Tailwind CSS integration\n- Project structure ready for component development\n\nInfrastructure:\n- Docker Compose orchestration with health checks\n- Setup wizard scripts for Windows and Unix\n- Environment example files\n- Comprehensive documentation \\(README, SETUP, implementation status\\)\n\nSpecs:\n- OpenAPI contract definition\n- Data model documentation\n- Task breakdown \\(36/108 tasks complete\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(docker compose:*)",
+      "Bash(docker compose build:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker rm:*)",
+      "Bash(curl:*)",
+      "Bash(git commit:*)",
+      "Bash(bash:*)"
     ]
   }
 }

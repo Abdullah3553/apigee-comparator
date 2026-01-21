@@ -1,0 +1,36 @@
+.entity-details {
+  padding: 0.5rem 0;
+}
+
+.entity-details__generic {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.entity-details__section {
+  margin-bottom: 1rem;
+}
+
+.entity-details__section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.entity-details__loading {
+  color: #6b7280;
+  font-size: 0.875rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.entity-details__error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  padding: 1rem;
+  text-align: center;
+}

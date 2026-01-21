@@ -20,7 +20,11 @@
       "Bash(npm run build:*)",
       "Bash(npm test:*)",
       "Bash(npm run lint:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(git config:*)",
+      "Bash(git fetch:*)",
+      "Bash(ls:*)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)"
     ]
   }
 }

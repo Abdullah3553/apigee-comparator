@@ -15,7 +15,12 @@
       "Bash(docker rm:*)",
       "Bash(curl:*)",
       "Bash(git commit:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

@@ -94,6 +94,60 @@
   border-top: 1px solid #e5e7eb;
 }
 
+.comparison-summary__issues {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.375rem;
+}
+
+.comparison-summary__issues-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.comparison-summary__issues-title {
+  font-weight: 600;
+  color: #991b1b;
+  font-size: 0.875rem;
+}
+
+.comparison-summary__issues-total {
+  font-size: 0.75rem;
+  color: #b91c1c;
+}
+
+.comparison-summary__issues-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.comparison-summary__issue-count {
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.comparison-summary__issue-count--critical {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.comparison-summary__issue-count--warning {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.comparison-summary__issue-env {
+  font-size: 0.75rem;
+  color: #7f1d1d;
+}
+
 @media (max-width: 768px) {
   .comparison-summary__stats {
     grid-template-columns: repeat(2, 1fr);

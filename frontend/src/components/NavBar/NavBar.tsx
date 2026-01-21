@@ -1,6 +1,7 @@
 import { EnvSelector } from '../EnvSelector/EnvSelector';
 import { EntityTypeSelector } from '../EntityTypeSelector/EntityTypeSelector';
 import { RefreshButton } from './RefreshButton';
+import { ViewModeToggle } from './ViewModeToggle';
 import { useEnvironment } from '../../contexts/EnvironmentContext';
 import './NavBar.css';
 
@@ -32,6 +33,7 @@ export function NavBar() {
       </div>
 
       <div className="navbar__actions">
+        <ViewModeToggle />
         <RefreshButton />
       </div>
     </nav>

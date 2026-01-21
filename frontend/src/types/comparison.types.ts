@@ -1,4 +1,4 @@
-import { Entity, EntityType } from './entity.types';
+import { Entity, EntityType, Issue } from './entity.types';
 
 export type ComparisonStatus = 'matched' | 'different' | 'only-in-env1' | 'only-in-env2';
 
@@ -41,6 +41,10 @@ export interface ComparisonResult {
   onlyInEnv1: SingleEnvEntity[];
   onlyInEnv2: SingleEnvEntity[];
   summary: ComparisonSummary;
+  issues: {
+    env1: Issue[];
+    env2: Issue[];
+  };
 }
 
 export interface ComparisonResponse {

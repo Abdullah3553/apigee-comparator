@@ -419,15 +419,19 @@ export class RefreshService {
   ) {
     for (const keystoreName of keystoreNames) {
       try {
-        const certs = await this.apigeeService.fetchKeystoreCertificates(client, org, env, keystoreName);
+        const [keystoreDetails, certs] = await Promise.all([
+          this.apigeeService.fetchKeystoreDetails(client, org, env, keystoreName),
+          this.apigeeService.fetchKeystoreCertificates(client, org, env, keystoreName),
+        ]);
         await queryRunner.manager.save(Keystore, {
           environment_id: environmentId,
           name: keystoreName,
+          aliases: keystoreDetails.aliases || [],
           certificates: certs.certs || certs || [],
-          raw_response: certs,
+          raw_response: { ...keystoreDetails, certs },
         });
       } catch (error) {
-        this.logger.warn(`Failed to fetch certs for keystore ${keystoreName}: ${error.message}`);
+        this.logger.warn(`Failed to fetch data for keystore ${keystoreName}: ${error.message}`);
         await queryRunner.manager.save(Keystore, {
           environment_id: environmentId,
           name: keystoreName,

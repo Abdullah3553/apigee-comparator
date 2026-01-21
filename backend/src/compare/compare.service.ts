@@ -1,5 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { EntitiesService, EntityType } from '../entities/entities.service';
+import { IssueDetectionService, Issue } from '../entities/issue-detection.service';
 
 export interface Difference {
   path: string;
@@ -40,11 +41,18 @@ export interface ComparisonResult {
   onlyInEnv1: SingleEnvEntity[];
   onlyInEnv2: SingleEnvEntity[];
   summary: ComparisonSummary;
+  issues: {
+    env1: Issue[];
+    env2: Issue[];
+  };
 }
 
 @Injectable()
 export class CompareService {
-  constructor(private readonly entitiesService: EntitiesService) {}
+  constructor(
+    private readonly entitiesService: EntitiesService,
+    private readonly issueDetectionService: IssueDetectionService,
+  ) {}
 
   async compareEnvironments(
     env1: string,
@@ -107,6 +115,9 @@ export class CompareService {
       }
     }
 
+    const env1Issues = this.issueDetectionService.detectIssues(entityType, env1Entities);
+    const env2Issues = this.issueDetectionService.detectIssues(entityType, env2Entities);
+
     return {
       matched,
       different,
@@ -119,6 +130,10 @@ export class CompareService {
         different: different.length,
         onlyInEnv1: onlyInEnv1.length,
         onlyInEnv2: onlyInEnv2.length,
+      },
+      issues: {
+        env1: env1Issues,
+        env2: env2Issues,
       },
     };
   }

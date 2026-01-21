@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EntitiesController } from './entities.controller';
 import { EntitiesService } from './entities.service';
+import { IssueDetectionService } from './issue-detection.service';
 import {
   Environment,
   App,
@@ -31,7 +32,7 @@ import {
     ]),
   ],
   controllers: [EntitiesController],
-  providers: [EntitiesService],
-  exports: [EntitiesService],
+  providers: [EntitiesService, IssueDetectionService],
+  exports: [EntitiesService, IssueDetectionService],
 })
 export class EntitiesModule {}

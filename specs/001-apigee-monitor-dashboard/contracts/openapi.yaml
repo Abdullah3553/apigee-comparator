@@ -275,6 +275,7 @@ components:
         - revoked-credential
         - expired-credential
         - undeployed-proxy
+        - disabled-target-server
 
     ConfigResponse:
       type: object
@@ -484,6 +485,17 @@ components:
             $ref: '#/components/schemas/SingleEnvEntity'
         summary:
           $ref: '#/components/schemas/ComparisonSummary'
+        issues:
+          type: object
+          properties:
+            env1:
+              type: array
+              items:
+                $ref: '#/components/schemas/Issue'
+            env2:
+              type: array
+              items:
+                $ref: '#/components/schemas/Issue'
 
     MatchedEntity:
       type: object

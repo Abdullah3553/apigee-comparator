@@ -1,9 +1,13 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { EntitiesService, EntityType } from './entities.service';
+import { IssueDetectionService } from './issue-detection.service';
 
 @Controller('entities')
 export class EntitiesController {
-  constructor(private readonly entitiesService: EntitiesService) {}
+  constructor(
+    private readonly entitiesService: EntitiesService,
+    private readonly issueDetectionService: IssueDetectionService,
+  ) {}
 
   @Get(':identifier/:entityType')
   async getEntities(
@@ -12,6 +16,7 @@ export class EntitiesController {
   ) {
     const entities = await this.entitiesService.getEntitiesByType(identifier, entityType);
     const lastRefreshed = await this.entitiesService.getLastRefreshed(identifier);
+    const issues = this.issueDetectionService.detectIssues(entityType, entities);
 
     return {
       environment: identifier,
@@ -23,6 +28,7 @@ export class EntitiesController {
         fetchedAt: entity.fetched_at,
         ...this.getEntitySpecificFields(entityType, entity),
       })),
+      issues,
     };
   }
 

@@ -1,6 +1,7 @@
 import { EnvironmentProvider, useEnvironment } from './contexts/EnvironmentContext';
 import { NavBar } from './components/NavBar/NavBar';
 import { ComparisonView } from './components/ComparisonView/ComparisonView';
+import { SingleEnvView } from './components/SingleEnvView/SingleEnvView';
 import './App.css';
 
 function AppContent() {
@@ -38,14 +39,7 @@ function AppContent() {
         )}
 
         {env1 && viewMode === 'single' && (
-          <div className="app__single">
-            <div className="app__panel app__panel--full">
-              <div className="app__panel-header">{env1}</div>
-              <div className="app__panel-content">
-                Single environment view will be implemented in User Story 6
-              </div>
-            </div>
-          </div>
+          <SingleEnvView />
         )}
       </main>
     </div>

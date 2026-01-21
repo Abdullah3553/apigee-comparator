@@ -213,11 +213,11 @@
 
 ### Frontend Implementation for US6
 
-- [ ] T086 [US6] Add viewMode state to EnvironmentContext in frontend/src/contexts/EnvironmentContext.tsx
-- [ ] T087 [US6] Create ViewModeToggle component in frontend/src/components/NavBar/ViewModeToggle.tsx
-- [ ] T088 [US6] Create SingleEnvView component for full-width display in frontend/src/components/SingleEnvView/SingleEnvView.tsx
-- [ ] T089 [US6] Update NavBar to conditionally show second EnvSelector in frontend/src/components/NavBar/NavBar.tsx
-- [ ] T090 [US6] Update App.tsx to switch between ComparisonView and SingleEnvView
+- [X] T086 [US6] Add viewMode state to EnvironmentContext in frontend/src/contexts/EnvironmentContext.tsx
+- [X] T087 [US6] Create ViewModeToggle component in frontend/src/components/NavBar/ViewModeToggle.tsx
+- [X] T088 [US6] Create SingleEnvView component for full-width display in frontend/src/components/SingleEnvView/SingleEnvView.tsx
+- [X] T089 [US6] Update NavBar to conditionally show second EnvSelector in frontend/src/components/NavBar/NavBar.tsx
+- [X] T090 [US6] Update App.tsx to switch between ComparisonView and SingleEnvView
 
 **Checkpoint**: User Story 6 complete - can toggle between view modes
 
@@ -231,19 +231,19 @@
 
 ### Backend Implementation for US7
 
-- [ ] T091 [US7] Create IssueDetectionService with detection logic in backend/src/entities/issue-detection.service.ts
-- [ ] T092 [US7] Add issue detection for expired/expiring certificates in backend/src/entities/issue-detection.service.ts
-- [ ] T093 [US7] Add issue detection for revoked apps/credentials in backend/src/entities/issue-detection.service.ts
-- [ ] T094 [US7] Add issue detection for undeployed proxies in backend/src/entities/issue-detection.service.ts
-- [ ] T095 [US7] Integrate issues in EntitiesController response in backend/src/entities/entities.controller.ts
+- [X] T091 [US7] Create IssueDetectionService with detection logic in backend/src/entities/issue-detection.service.ts
+- [X] T092 [US7] Add issue detection for expired/expiring certificates in backend/src/entities/issue-detection.service.ts
+- [X] T093 [US7] Add issue detection for revoked apps/credentials in backend/src/entities/issue-detection.service.ts
+- [X] T094 [US7] Add issue detection for undeployed proxies in backend/src/entities/issue-detection.service.ts
+- [X] T095 [US7] Integrate issues in EntitiesController response in backend/src/entities/entities.controller.ts
 
 ### Frontend Implementation for US7
 
-- [ ] T096 [US7] Create IssueBadge component (red/orange/gray) in frontend/src/components/common/IssueBadge.tsx
-- [ ] T097 [US7] Create useIssues hook for issue data in frontend/src/hooks/useIssues.ts
-- [ ] T098 [US7] Integrate IssueBadge in ComparisonRow in frontend/src/components/ComparisonView/ComparisonRow.tsx
-- [ ] T099 [US7] Integrate IssueBadge in SingleEnvView in frontend/src/components/SingleEnvView/SingleEnvView.tsx
-- [ ] T100 [US7] Add issue summary to ComparisonSummary in frontend/src/components/ComparisonView/ComparisonSummary.tsx
+- [X] T096 [US7] Create IssueBadge component (red/orange/gray) in frontend/src/components/common/IssueBadge.tsx
+- [X] T097 [US7] Create useIssues hook for issue data in frontend/src/hooks/useIssues.ts
+- [X] T098 [US7] Integrate IssueBadge in ComparisonRow in frontend/src/components/ComparisonView/ComparisonRow.tsx
+- [X] T099 [US7] Integrate IssueBadge in SingleEnvView in frontend/src/components/SingleEnvView/SingleEnvView.tsx
+- [X] T100 [US7] Add issue summary to ComparisonSummary in frontend/src/components/ComparisonView/ComparisonSummary.tsx
 
 **Checkpoint**: User Story 7 complete - issues are highlighted with appropriate badges
 
@@ -253,14 +253,14 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T101 [P] Add empty state component for no entities found in frontend/src/components/common/EmptyState.tsx
-- [ ] T102 [P] Add loading skeleton components in frontend/src/components/common/LoadingSkeleton.tsx
-- [ ] T103 [P] Add error boundary component in frontend/src/components/common/ErrorBoundary.tsx
-- [ ] T104 Add responsive layout adjustments for smaller screens in frontend/src/App.tsx
-- [ ] T105 Add entity name search/filter input to panels in frontend/src/components/ComparisonView/ComparisonView.tsx
-- [ ] T106 [P] Add format utilities for dates and identifiers in frontend/src/utils/format.utils.ts
-- [ ] T107 Validate quickstart.md steps work end-to-end
-- [ ] T108 Code cleanup and remove unused imports across all files
+- [X] T101 [P] Add empty state component for no entities found in frontend/src/components/common/EmptyState.tsx
+- [X] T102 [P] Add loading skeleton components in frontend/src/components/common/LoadingSkeleton.tsx
+- [X] T103 [P] Add error boundary component in frontend/src/components/common/ErrorBoundary.tsx
+- [X] T104 Add responsive layout adjustments for smaller screens in frontend/src/App.tsx
+- [X] T105 Add entity name search/filter input to panels in frontend/src/components/ComparisonView/ComparisonView.tsx
+- [X] T106 [P] Add format utilities for dates and identifiers in frontend/src/utils/format.utils.ts
+- [X] T107 Validate quickstart.md steps work end-to-end
+- [X] T108 Code cleanup and remove unused imports across all files
 
 ---
 

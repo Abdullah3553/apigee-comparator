@@ -1,0 +1,140 @@
+.issue-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.issue-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 50%;
+  font-size: 0.5rem;
+}
+
+.issue-badge--critical {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.issue-badge--critical .issue-badge__icon {
+  background-color: #ef4444;
+  color: white;
+}
+
+.issue-badge--warning {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.issue-badge--warning .issue-badge__icon {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.issue-badge--info {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.issue-badge--info .issue-badge__icon {
+  background-color: #6b7280;
+  color: white;
+}
+
+/* Issue Summary */
+.issue-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.issue-summary__title {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.issue-summary__count {
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+.issue-summary__count--critical {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.issue-summary__count--warning {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.issue-summary__count--info {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+/* Issue List */
+.issue-list {
+  margin-top: 0.75rem;
+}
+
+.issue-list__empty {
+  color: #10b981;
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: #d1fae5;
+  border-radius: 0.375rem;
+}
+
+.issue-list__group {
+  margin-bottom: 0.75rem;
+}
+
+.issue-list__group-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.375rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.issue-list__group-title--critical {
+  color: #991b1b;
+}
+
+.issue-list__group-title--warning {
+  color: #92400e;
+}
+
+.issue-list__group-title--info {
+  color: #4b5563;
+}
+
+.issue-list__items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.issue-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0;
+  font-size: 0.8125rem;
+}
+
+.issue-list__message {
+  color: #374151;
+}

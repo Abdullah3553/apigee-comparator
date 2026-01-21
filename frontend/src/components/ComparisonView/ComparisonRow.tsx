@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { StatusIndicator } from '../common/StatusIcons';
+import { IssueBadge } from '../common/IssueBadge';
 import { EntityDetails } from '../EntityDetails/EntityDetails';
 import type { ComparisonStatus, Difference } from '../../types/comparison.types';
-import type { Entity, EntityType } from '../../types/entity.types';
+import type { Entity, EntityType, Issue } from '../../types/entity.types';
 import { formatDifferencePath, formatDifferenceValue } from '../../utils/comparison.utils';
 import './ComparisonRow.css';
 
@@ -15,6 +16,7 @@ interface ComparisonRowProps {
   entityType?: EntityType;
   env1Identifier?: string;
   env2Identifier?: string;
+  issues?: Issue[];
 }
 
 export function ComparisonRow({
@@ -26,6 +28,7 @@ export function ComparisonRow({
   entityType,
   env1Identifier,
   env2Identifier,
+  issues = [],
 }: ComparisonRowProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -49,6 +52,13 @@ export function ComparisonRow({
           <StatusIndicator status={status} />
         </div>
         <div className="comparison-row__name">{name}</div>
+        {issues.length > 0 && (
+          <div className="comparison-row__issues">
+            {issues.map((issue, idx) => (
+              <IssueBadge key={idx} issue={issue} />
+            ))}
+          </div>
+        )}
         {hasDetails && (
           <div className="comparison-row__expand">
             <span className={`comparison-row__chevron ${isExpanded ? 'comparison-row__chevron--expanded' : ''}`}>

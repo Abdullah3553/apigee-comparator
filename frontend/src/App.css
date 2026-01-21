@@ -67,8 +67,39 @@
   color: #6b7280;
 }
 
+@media (max-width: 1024px) {
+  .app__main {
+    padding: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .app__comparison {
     grid-template-columns: 1fr;
+  }
+
+  .app__main {
+    padding: 0.75rem;
+  }
+
+  .app__placeholder {
+    min-height: 250px;
+    padding: 1.5rem;
+  }
+
+  .app__placeholder-title {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .app__placeholder-text {
+    text-align: center;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app__main {
+    padding: 0.5rem;
   }
 }

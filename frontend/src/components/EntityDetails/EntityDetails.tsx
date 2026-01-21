@@ -23,7 +23,6 @@ export function EntityDetails({
   env2Identifier,
 }: EntityDetailsProps) {
   const isBothEnvs = !!env1Data && !!env2Data;
-  const singleData = env1Data || env2Data;
   const singleEnvId = env1Data ? env1Identifier : env2Identifier;
 
   switch (entityType) {

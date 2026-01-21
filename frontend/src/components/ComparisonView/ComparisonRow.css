@@ -49,6 +49,12 @@
   font-weight: 500;
 }
 
+.comparison-row__issues {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
 .comparison-row__expand {
   flex-shrink: 0;
   color: #9ca3af;

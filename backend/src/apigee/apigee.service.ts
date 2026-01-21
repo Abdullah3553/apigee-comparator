@@ -142,6 +142,16 @@ export class ApigeeService {
     }
   }
 
+  async fetchKeystoreDetails(client: AxiosInstance, org: string, env: string, keystoreName: string): Promise<any> {
+    try {
+      const response = await client.get(`/organizations/${org}/environments/${env}/keystores/${keystoreName}`);
+      return response.data;
+    } catch (error) {
+      this.logger.error(`Failed to fetch details for keystore ${keystoreName}:`, error.message);
+      throw error;
+    }
+  }
+
   async fetchKeystoreCertificates(client: AxiosInstance, org: string, env: string, keystoreName: string): Promise<any> {
     try {
       const response = await client.get(`/organizations/${org}/environments/${env}/keystores/${keystoreName}/certs`);

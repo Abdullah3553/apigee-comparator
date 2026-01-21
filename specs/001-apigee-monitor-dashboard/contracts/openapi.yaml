@@ -1,0 +1,675 @@
+openapi: 3.0.3
+info:
+  title: Apigee Monitor Dashboard API
+  description: |
+    Backend API for the Apigee Real-Time Monitoring Dashboard.
+    Provides configuration, entity retrieval, comparison, and refresh operations.
+
+    **Key Principles:**
+    - Read-only operations (no writes to Apigee)
+    - Database-first reads (data served from PostgreSQL)
+    - INSTANCE-ORG-ENV identifier pattern
+  version: 1.0.0
+  contact:
+    name: Apigee Integration Team
+
+servers:
+  - url: http://localhost:3001/api
+    description: Local development
+
+tags:
+  - name: Config
+    description: Configuration and environment topology
+  - name: Entities
+    description: Entity retrieval by environment and type
+  - name: Compare
+    description: Environment comparison operations
+  - name: Refresh
+    description: Data refresh from Apigee APIs
+
+paths:
+  /config:
+    get:
+      tags: [Config]
+      summary: Get configuration topology
+      description: Returns all configured instances, organizations, and environments
+      operationId: getConfig
+      responses:
+        '200':
+          description: Configuration retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigResponse'
+
+  /environments:
+    get:
+      tags: [Config]
+      summary: List all environments
+      description: Returns list of all INSTANCE-ORG-ENV identifiers
+      operationId: getEnvironments
+      responses:
+        '200':
+          description: Environments retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentsResponse'
+
+  /environments/{identifier}:
+    get:
+      tags: [Config]
+      summary: Get environment details
+      description: Returns details for a specific environment including last refresh time
+      operationId: getEnvironment
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentIdentifier'
+      responses:
+        '200':
+          description: Environment details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentDetails'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /entities/{identifier}/{entityType}:
+    get:
+      tags: [Entities]
+      summary: Get entities by type
+      description: Returns all entities of a specific type for an environment
+      operationId: getEntities
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentIdentifier'
+        - $ref: '#/components/parameters/EntityType'
+      responses:
+        '200':
+          description: Entities retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitiesResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /entities/{identifier}/kvms/{kvmName}/entries:
+    get:
+      tags: [Entities]
+      summary: Get KVM entries
+      description: Returns all entries for a specific KVM
+      operationId: getKvmEntries
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentIdentifier'
+        - name: kvmName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: KVM name
+      responses:
+        '200':
+          description: KVM entries retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvmEntriesResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /entities/{identifier}/keystores/{keystoreName}/certificates:
+    get:
+      tags: [Entities]
+      summary: Get keystore certificates
+      description: Returns all certificates for a specific keystore
+      operationId: getKeystoreCertificates
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentIdentifier'
+        - name: keystoreName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Keystore name
+      responses:
+        '200':
+          description: Certificates retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificatesResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /compare:
+    get:
+      tags: [Compare]
+      summary: Compare two environments
+      description: |
+        Compares entities between two environments and returns categorized results:
+        - matched: identical entities
+        - different: same name, different configuration
+        - onlyInEnv1: exists only in first environment
+        - onlyInEnv2: exists only in second environment
+      operationId: compareEnvironments
+      parameters:
+        - name: env1
+          in: query
+          required: true
+          schema:
+            type: string
+          description: First environment identifier (INSTANCE-ORG-ENV)
+          example: PROD-prodorg-staging
+        - name: env2
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Second environment identifier (INSTANCE-ORG-ENV)
+          example: PROD-prodorg-production
+        - name: entityType
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/EntityTypeEnum'
+          description: Type of entity to compare
+      responses:
+        '200':
+          description: Comparison completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparisonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /refresh:
+    post:
+      tags: [Refresh]
+      summary: Refresh all environments
+      description: |
+        Triggers a refresh of all configured environments from Apigee APIs.
+        Runs in parallel with partial failure handling - if one environment
+        fails, others continue.
+      operationId: refreshAll
+      responses:
+        '200':
+          description: Refresh completed (may include partial failures)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /refresh/{identifier}:
+    post:
+      tags: [Refresh]
+      summary: Refresh single environment
+      description: Triggers a refresh of a specific environment from Apigee APIs
+      operationId: refreshEnvironment
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentIdentifier'
+      responses:
+        '200':
+          description: Environment refresh completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentRefreshResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+components:
+  parameters:
+    EnvironmentIdentifier:
+      name: identifier
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[A-Z]+-[a-z0-9-]+-[a-z0-9-]+$'
+      description: Environment identifier in INSTANCE-ORG-ENV format
+      example: PROD-prodorg-staging
+
+    EntityType:
+      name: entityType
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/EntityTypeEnum'
+      description: Type of Apigee entity
+
+  schemas:
+    EntityTypeEnum:
+      type: string
+      enum:
+        - apps
+        - products
+        - proxies
+        - caches
+        - kvms
+        - target-servers
+        - references
+        - keystores
+        - virtual-hosts
+
+    ComparisonStatus:
+      type: string
+      enum:
+        - matched
+        - different
+        - only-in-env1
+        - only-in-env2
+
+    IssueType:
+      type: string
+      enum:
+        - expired-certificate
+        - expiring-soon
+        - revoked-app
+        - revoked-credential
+        - expired-credential
+        - undeployed-proxy
+
+    ConfigResponse:
+      type: object
+      required: [instances]
+      properties:
+        instances:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstanceConfig'
+
+    InstanceConfig:
+      type: object
+      required: [name, org, environments]
+      properties:
+        name:
+          type: string
+          example: PROD
+        org:
+          type: string
+          example: prod-org
+        environments:
+          type: array
+          items:
+            type: string
+          example: [staging, production]
+
+    EnvironmentsResponse:
+      type: object
+      required: [environments]
+      properties:
+        environments:
+          type: array
+          items:
+            type: string
+          example:
+            - PROD-prodorg-staging
+            - PROD-prodorg-production
+
+    EnvironmentDetails:
+      type: object
+      required: [identifier, instance, org, environment, lastRefreshedAt, status]
+      properties:
+        identifier:
+          type: string
+          example: PROD-prodorg-staging
+        instance:
+          type: string
+          example: PROD
+        org:
+          type: string
+          example: prod-org
+        environment:
+          type: string
+          example: staging
+        lastRefreshedAt:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+          enum: [pending, refreshing, success, failed]
+        error:
+          type: string
+          nullable: true
+
+    EntitiesResponse:
+      type: object
+      required: [environment, entityType, lastRefreshed, data]
+      properties:
+        environment:
+          type: string
+          example: PROD-prodorg-staging
+        entityType:
+          $ref: '#/components/schemas/EntityTypeEnum'
+        lastRefreshed:
+          type: string
+          format: date-time
+          nullable: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity'
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+
+    Entity:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        fetchedAt:
+          type: string
+          format: date-time
+      additionalProperties: true
+
+    Issue:
+      type: object
+      required: [entityName, type, message]
+      properties:
+        entityName:
+          type: string
+        type:
+          $ref: '#/components/schemas/IssueType'
+        message:
+          type: string
+        severity:
+          type: string
+          enum: [critical, warning, info]
+        details:
+          type: object
+          additionalProperties: true
+
+    KvmEntriesResponse:
+      type: object
+      required: [kvmName, environment, entries]
+      properties:
+        kvmName:
+          type: string
+        environment:
+          type: string
+        encrypted:
+          type: boolean
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+
+    CertificatesResponse:
+      type: object
+      required: [keystoreName, environment, certificates]
+      properties:
+        keystoreName:
+          type: string
+        environment:
+          type: string
+        certificates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certificate'
+
+    Certificate:
+      type: object
+      required: [alias, subject, issuer, expiresAt]
+      properties:
+        alias:
+          type: string
+        subject:
+          type: string
+        issuer:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+        serialNumber:
+          type: string
+        isExpired:
+          type: boolean
+        isExpiringSoon:
+          type: boolean
+        daysUntilExpiry:
+          type: integer
+
+    ComparisonResponse:
+      type: object
+      required: [env1, env2, entityType, comparison]
+      properties:
+        env1:
+          type: string
+          example: PROD-prodorg-staging
+        env2:
+          type: string
+          example: PROD-prodorg-production
+        entityType:
+          $ref: '#/components/schemas/EntityTypeEnum'
+        comparison:
+          $ref: '#/components/schemas/ComparisonResult'
+
+    ComparisonResult:
+      type: object
+      required: [matched, different, onlyInEnv1, onlyInEnv2, summary]
+      properties:
+        matched:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchedEntity'
+        different:
+          type: array
+          items:
+            $ref: '#/components/schemas/DifferentEntity'
+        onlyInEnv1:
+          type: array
+          items:
+            $ref: '#/components/schemas/SingleEnvEntity'
+        onlyInEnv2:
+          type: array
+          items:
+            $ref: '#/components/schemas/SingleEnvEntity'
+        summary:
+          $ref: '#/components/schemas/ComparisonSummary'
+
+    MatchedEntity:
+      type: object
+      required: [name, env1Data, env2Data]
+      properties:
+        name:
+          type: string
+        env1Data:
+          type: object
+          additionalProperties: true
+        env2Data:
+          type: object
+          additionalProperties: true
+
+    DifferentEntity:
+      type: object
+      required: [name, env1Data, env2Data, differences]
+      properties:
+        name:
+          type: string
+        env1Data:
+          type: object
+          additionalProperties: true
+        env2Data:
+          type: object
+          additionalProperties: true
+        differences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Difference'
+
+    Difference:
+      type: object
+      required: [path, env1Value, env2Value]
+      properties:
+        path:
+          type: string
+          description: JSON path to the differing field
+          example: credentials[0].status
+        env1Value:
+          description: Value in first environment
+        env2Value:
+          description: Value in second environment
+
+    SingleEnvEntity:
+      type: object
+      required: [name, data]
+      properties:
+        name:
+          type: string
+        data:
+          type: object
+          additionalProperties: true
+
+    ComparisonSummary:
+      type: object
+      required: [totalEnv1, totalEnv2, matched, different, onlyInEnv1, onlyInEnv2]
+      properties:
+        totalEnv1:
+          type: integer
+        totalEnv2:
+          type: integer
+        matched:
+          type: integer
+        different:
+          type: integer
+        onlyInEnv1:
+          type: integer
+        onlyInEnv2:
+          type: integer
+
+    RefreshResponse:
+      type: object
+      required: [success, refreshedAt, summary]
+      properties:
+        success:
+          type: boolean
+        refreshedAt:
+          type: string
+          format: date-time
+        summary:
+          $ref: '#/components/schemas/RefreshSummary'
+        failures:
+          type: array
+          items:
+            $ref: '#/components/schemas/RefreshFailure'
+
+    RefreshSummary:
+      type: object
+      required: [environmentsRefreshed, entitiesFetched]
+      properties:
+        environmentsRefreshed:
+          type: integer
+        environmentsFailed:
+          type: integer
+        entitiesFetched:
+          type: object
+          properties:
+            apps:
+              type: integer
+            products:
+              type: integer
+            proxies:
+              type: integer
+            caches:
+              type: integer
+            kvms:
+              type: integer
+            targetServers:
+              type: integer
+            references:
+              type: integer
+            keystores:
+              type: integer
+            virtualHosts:
+              type: integer
+
+    RefreshFailure:
+      type: object
+      required: [environment, error]
+      properties:
+        environment:
+          type: string
+        error:
+          type: string
+
+    EnvironmentRefreshResponse:
+      type: object
+      required: [environment, success, refreshedAt]
+      properties:
+        environment:
+          type: string
+        success:
+          type: boolean
+        refreshedAt:
+          type: string
+          format: date-time
+        entitiesFetched:
+          type: object
+          additionalProperties:
+            type: integer
+        error:
+          type: string
+          nullable: true
+
+    Error:
+      type: object
+      required: [statusCode, message]
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 400
+            message: Invalid environment identifier format
+            error: Bad Request
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 404
+            message: Environment not found
+            error: Not Found
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 500
+            message: Failed to connect to Apigee API
+            error: Internal Server Error

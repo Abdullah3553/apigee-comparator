@@ -1,0 +1,32 @@
+# Apigee Instance Configuration
+# This file defines the Apigee instances, organizations, and environments to monitor
+
+instances:
+  # Production Instance
+  - name: "PROD"
+    management_url: "https://api.enterprise.apigee.com/v1"
+    org: "your-prod-org-name"
+    credentials:
+      username: "${APIGEE_PROD_USERNAME}"
+      password: "${APIGEE_PROD_PASSWORD}"
+    environments:
+      - "test"
+      - "staging"
+      - "production"
+
+  # Development Instance (example - uncomment and configure if needed)
+  # - name: "DEV"
+  #   management_url: "https://api.enterprise.apigee.com/v1"
+  #   org: "your-dev-org-name"
+  #   credentials:
+  #     username: "${APIGEE_DEV_USERNAME}"
+  #     password: "${APIGEE_DEV_PASSWORD}"
+  #   environments:
+  #     - "dev"
+  #     - "qa"
+
+# Notes:
+# - Credentials use environment variable interpolation: ${VAR_NAME}
+# - Environment variable pattern: APIGEE_{INSTANCE_NAME}_USERNAME/PASSWORD
+# - Each environment will be uniquely identified as: INSTANCE-ORG-ENV
+# - Example identifier: PROD-your-prod-org-name-production

@@ -58,7 +58,7 @@ services:
       - ./frontend/public:/app/public
     depends_on:
       - backend
-    command: npm run dev
+    command: npm run dev -- --host
 
 volumes:
   postgres-data:

@@ -10,25 +10,34 @@
     "test": "jest",
     "validate-data": "node -e \"const fs=require('fs');const path=require('path');const dir='data';fs.readdirSync(dir,{recursive:true}).filter(f=>f.endsWith('.json')).forEach(f=>{try{JSON.parse(fs.readFileSync(path.join(dir,f),'utf8'));console.log('✓',f)}catch(e){console.error('✗',f,e.message);process.exit(1)}})\""
   },
-  "keywords": ["apigee", "mock", "api", "testing"],
+  "keywords": [
+    "apigee",
+    "mock",
+    "api",
+    "testing"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
-    "morgan": "^1.10.0"
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
     "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.11",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.11.0",
-    "typescript": "^5.3.3",
-    "ts-node": "^10.9.2",
-    "jest": "^29.7.0",
-    "@types/jest": "^29.5.11",
-    "supertest": "^6.3.4",
     "@types/supertest": "^6.0.2",
-    "ts-jest": "^29.1.1"
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

@@ -14,6 +14,7 @@ npm install
 npm run dev
 
 # Server runs at http://localhost:8080
+# Swagger UI available at http://localhost:8080/api-docs
 ```
 
 ### Docker Compose
@@ -29,6 +30,7 @@ docker-compose --profile mock up mock-server
 ## Features
 
 - **Complete API Coverage**: 23 endpoints covering all 9 Apigee entity types
+- **Interactive API Documentation**: Swagger UI at `/api-docs` for testing endpoints
 - **Two Environments**: Mock data for `dev` and `staging` with realistic differences
 - **Comparison Testing**: Pre-configured differences for testing comparison features
 - **Basic Authentication**: Simple `mock/mock` credentials
@@ -129,6 +131,16 @@ instances:
 ```
 
 ## Testing
+
+### Option 1: Swagger UI (Recommended)
+
+1. Start the server: `npm run dev`
+2. Open browser: `http://localhost:8080/api-docs`
+3. Click "Authorize" button
+4. Enter credentials: `mock` / `mock`
+5. Test any endpoint interactively
+
+### Option 2: cURL
 
 ```bash
 # Verify server is running

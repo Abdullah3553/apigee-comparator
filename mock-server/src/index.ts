@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger';
 import { authMiddleware } from './middleware/auth';
 import { errorHandler } from './middleware/errorHandler';
 
@@ -12,6 +14,22 @@ const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 app.use(cors());
 app.use(express.json());
 app.use(morgan(LOG_LEVEL === 'debug' ? 'dev' : 'combined'));
+
+// Swagger UI (no auth required)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  customSiteTitle: 'Apigee Mock API Documentation',
+  customCss: '.swagger-ui .topbar { display: none }',
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true
+  }
+}));
+
+// Serve OpenAPI spec as JSON (no auth required)
+app.get('/api-docs.json', (_req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
 
 // Authentication
 app.use(authMiddleware);
@@ -61,6 +79,7 @@ if (require.main === module) {
     console.log(`[INFO] Apigee Mock Server listening on port ${PORT}`);
     console.log(`[INFO] Log level: ${LOG_LEVEL}`);
     console.log(`[INFO] Authentication: Basic Auth (mock/mock)`);
+    console.log(`[INFO] API Documentation: http://localhost:${PORT}/api-docs`);
   });
 }
 

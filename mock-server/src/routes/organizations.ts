@@ -23,13 +23,62 @@ interface OrganizationsData {
   list: string[];
 }
 
-// GET /v1/organizations - List all organizations
+/**
+ * @openapi
+ * /v1/organizations:
+ *   get:
+ *     tags:
+ *       - Organizations
+ *     summary: List all organizations
+ *     description: Returns a list of organization names
+ *     responses:
+ *       200:
+ *         description: List of organization names
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               example: ["mock-org"]
+ *       401:
+ *         description: Unauthorized
+ */
 router.get('/', (_req: Request, res: Response) => {
   const data = loadData<OrganizationsData>('organizations.json');
   res.json(data.list);
 });
 
-// GET /v1/organizations/:org - Get organization details
+/**
+ * @openapi
+ * /v1/organizations/{org}:
+ *   get:
+ *     tags:
+ *       - Organizations
+ *     summary: Get organization details
+ *     description: Returns detailed information about a specific organization
+ *     parameters:
+ *       - in: path
+ *         name: org
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: mock-org
+ *         description: Organization name
+ *     responses:
+ *       200:
+ *         description: Organization details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Organization'
+ *       404:
+ *         description: Organization not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get('/:org', (req: Request, res: Response) => {
   const { org } = req.params;
   const data = loadData<OrganizationsData>('organizations.json');

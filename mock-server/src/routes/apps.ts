@@ -33,7 +33,45 @@ interface AppsData {
   app: App[];
 }
 
-// GET /v1/organizations/:org/apps?expand=true - List all apps (expanded)
+/**
+ * @openapi
+ * /v1/organizations/{org}/apps:
+ *   get:
+ *     tags:
+ *       - Apps
+ *     summary: List developer apps
+ *     description: Returns a list of apps, optionally expanded with full details
+ *     parameters:
+ *       - in: path
+ *         name: org
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: mock-org
+ *       - in: query
+ *         name: expand
+ *         schema:
+ *           type: string
+ *           enum: [true, false]
+ *           example: true
+ *         description: If true, returns full app details. If false, returns only app names
+ *     responses:
+ *       200:
+ *         description: List of apps
+ *         content:
+ *           application/json:
+ *             schema:
+ *               oneOf:
+ *                 - type: object
+ *                   properties:
+ *                     app:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/App'
+ *                 - type: array
+ *                   items:
+ *                     type: string
+ */
 router.get('/', (req: Request, res: Response) => {
   const { org: _org } = req.params;
   const { expand } = req.query;

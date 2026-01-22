@@ -1,0 +1,88 @@
+{
+  "app": [
+    {
+      "appId": "app-001",
+      "name": "partner-portal-app",
+      "accessType": "read",
+      "appFamily": "default",
+      "callbackUrl": "https://partner.example.com/callback",
+      "developerId": "dev-001",
+      "status": "approved",
+      "credentials": [
+        {
+          "consumerKey": "key-001-staging",
+          "consumerSecret": "secret-001-staging",
+          "expiresAt": -1,
+          "issuedAt": 1700000000000,
+          "status": "approved",
+          "apiProducts": [
+            {
+              "apiproduct": "payment-api-product",
+              "status": "approved"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700000000000,
+      "createdBy": "dev@mock.com",
+      "lastModifiedAt": 1700500000000,
+      "lastModifiedBy": "dev@mock.com"
+    },
+    {
+      "appId": "app-002",
+      "name": "mobile-banking-app",
+      "accessType": "read",
+      "appFamily": "default",
+      "callbackUrl": "https://mobile.example.com/oauth",
+      "developerId": "dev-002",
+      "status": "approved",
+      "credentials": [
+        {
+          "consumerKey": "key-002-staging",
+          "consumerSecret": "secret-002-staging",
+          "expiresAt": -1,
+          "issuedAt": 1700100000000,
+          "status": "approved",
+          "apiProducts": [
+            {
+              "apiproduct": "customer-api-product",
+              "status": "approved"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700100000000,
+      "createdBy": "dev@mock.com",
+      "lastModifiedAt": 1700600000000,
+      "lastModifiedBy": "dev@mock.com"
+    },
+    {
+      "appId": "app-004",
+      "name": "web-portal-app",
+      "accessType": "read",
+      "appFamily": "default",
+      "callbackUrl": "https://web.example.com/callback",
+      "developerId": "dev-004",
+      "status": "approved",
+      "credentials": [
+        {
+          "consumerKey": "key-004-staging",
+          "consumerSecret": "secret-004-staging",
+          "expiresAt": -1,
+          "issuedAt": 1700300000000,
+          "status": "approved",
+          "apiProducts": [
+            {
+              "apiproduct": "customer-api-product",
+              "status": "approved"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700300000000,
+      "createdBy": "dev@mock.com",
+      "lastModifiedAt": 1700800000000,
+      "lastModifiedBy": "dev@mock.com"
+    }
+  ]
+}

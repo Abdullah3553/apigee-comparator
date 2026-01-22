@@ -26,11 +26,11 @@ This project uses a monorepo structure with a new `mock-server/` directory at th
 
 **Purpose**: Project initialization and basic structure for the mock server
 
-- [ ] T001 Create mock-server directory structure per plan.md in mock-server/
-- [ ] T002 Initialize TypeScript project with Express.js dependencies in mock-server/package.json
-- [ ] T003 [P] Configure TypeScript compiler options in mock-server/tsconfig.json
-- [ ] T004 [P] Add npm scripts for dev/build/start in mock-server/package.json
-- [ ] T005 [P] Create Dockerfile for mock server in mock-server/Dockerfile
+- [X] T001 Create mock-server directory structure per plan.md in mock-server/
+- [X] T002 Initialize TypeScript project with Express.js dependencies in mock-server/package.json
+- [X] T003 [P] Configure TypeScript compiler options in mock-server/tsconfig.json
+- [X] T004 [P] Add npm scripts for dev/build/start in mock-server/package.json
+- [X] T005 [P] Create Dockerfile for mock server in mock-server/Dockerfile
 
 ---
 
@@ -40,13 +40,13 @@ This project uses a monorepo structure with a new `mock-server/` directory at th
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Create Express app entry point with CORS and JSON middleware in mock-server/src/index.ts
-- [ ] T007 [P] Implement Basic Auth middleware (mock/mock credentials) in mock-server/src/middleware/auth.ts
-- [ ] T008 [P] Implement request logging middleware with morgan in mock-server/src/middleware/logger.ts
-- [ ] T009 Create JSON data loader utility with caching in mock-server/src/data/loader.ts
-- [ ] T010 [P] Create error handling middleware (401, 404, 500) in mock-server/src/middleware/errorHandler.ts
-- [ ] T011 Add mock-server service to docker-compose.yml with mock profile
-- [ ] T012 [P] Add MOCK_SERVER_PORT and LOG_LEVEL to .env.example
+- [X] T006 Create Express app entry point with CORS and JSON middleware in mock-server/src/index.ts
+- [X] T007 [P] Implement Basic Auth middleware (mock/mock credentials) in mock-server/src/middleware/auth.ts
+- [X] T008 [P] Implement request logging middleware with morgan in mock-server/src/middleware/logger.ts
+- [X] T009 Create JSON data loader utility with caching in mock-server/src/data/loader.ts
+- [X] T010 [P] Create error handling middleware (401, 404, 500) in mock-server/src/middleware/errorHandler.ts
+- [X] T011 Add mock-server service to docker-compose.yml with mock profile
+- [X] T012 [P] Add MOCK_SERVER_PORT and LOG_LEVEL to .env.example
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -62,59 +62,59 @@ This project uses a monorepo structure with a new `mock-server/` directory at th
 
 #### Organization and Environment Routes
 
-- [ ] T013 [US1] Create organizations route with list and detail endpoints in mock-server/src/routes/organizations.ts
-- [ ] T014 [US1] Create environments route with list and detail endpoints in mock-server/src/routes/environments.ts
+- [X] T013 [US1] Create organizations route with list and detail endpoints in mock-server/src/routes/organizations.ts
+- [X] T014 [US1] Create environments route with list and detail endpoints in mock-server/src/routes/environments.ts
 
 #### Organization-Level Entity Routes
 
-- [ ] T015 [P] [US1] Create apps route with list and detail endpoints in mock-server/src/routes/apps.ts
-- [ ] T016 [P] [US1] Create apiProducts route with list and detail endpoints in mock-server/src/routes/apiProducts.ts
-- [ ] T017 [P] [US1] Create apiProxies route with list, detail, and deployments endpoints in mock-server/src/routes/apiProxies.ts
+- [X] T015 [P] [US1] Create apps route with list and detail endpoints in mock-server/src/routes/apps.ts
+- [X] T016 [P] [US1] Create apiProducts route with list and detail endpoints in mock-server/src/routes/apiProducts.ts
+- [X] T017 [P] [US1] Create apiProxies route with list, detail, and deployments endpoints in mock-server/src/routes/apiProxies.ts
 
 #### Environment-Scoped Entity Routes
 
-- [ ] T018 [P] [US1] Create caches route with list and detail endpoints in mock-server/src/routes/caches.ts
-- [ ] T019 [P] [US1] Create kvms route with list and detail endpoints in mock-server/src/routes/kvms.ts
-- [ ] T020 [P] [US1] Create targetServers route with list and detail endpoints in mock-server/src/routes/targetServers.ts
-- [ ] T021 [P] [US1] Create references route with list and detail endpoints in mock-server/src/routes/references.ts
-- [ ] T022 [P] [US1] Create keystores route with list, detail, and alias endpoints in mock-server/src/routes/keystores.ts
-- [ ] T023 [P] [US1] Create virtualHosts route with list and detail endpoints in mock-server/src/routes/virtualHosts.ts
+- [X] T018 [P] [US1] Create caches route with list and detail endpoints in mock-server/src/routes/caches.ts
+- [X] T019 [P] [US1] Create kvms route with list and detail endpoints in mock-server/src/routes/kvms.ts
+- [X] T020 [P] [US1] Create targetServers route with list and detail endpoints in mock-server/src/routes/targetServers.ts
+- [X] T021 [P] [US1] Create references route with list and detail endpoints in mock-server/src/routes/references.ts
+- [X] T022 [P] [US1] Create keystores route with list, detail, and alias endpoints in mock-server/src/routes/keystores.ts
+- [X] T023 [P] [US1] Create virtualHosts route with list and detail endpoints in mock-server/src/routes/virtualHosts.ts
 
 #### Register All Routes
 
-- [ ] T024 [US1] Register all routes in Express app with /v1 prefix in mock-server/src/index.ts
+- [X] T024 [US1] Register all routes in Express app with /v1 prefix in mock-server/src/index.ts
 
 #### Basic Mock Data (Minimal)
 
-- [ ] T025 [US1] Create organizations.json with mock-org definition in mock-server/data/organizations.json
-- [ ] T026 [P] [US1] Create dev environment.json in mock-server/data/dev/environment.json
-- [ ] T027 [P] [US1] Create staging environment.json in mock-server/data/staging/environment.json
-- [ ] T028 [P] [US1] Create minimal dev apps.json (3 apps) in mock-server/data/dev/apps.json
-- [ ] T029 [P] [US1] Create minimal staging apps.json (3 apps, 2 matching dev) in mock-server/data/staging/apps.json
-- [ ] T030 [P] [US1] Create minimal dev apiProducts.json (3 products) in mock-server/data/dev/apiProducts.json
-- [ ] T031 [P] [US1] Create minimal staging apiProducts.json (3 products) in mock-server/data/staging/apiProducts.json
-- [ ] T032 [P] [US1] Create minimal dev apiProxies.json with deployments (3 proxies) in mock-server/data/dev/apiProxies.json
-- [ ] T033 [P] [US1] Create minimal staging apiProxies.json (3 proxies) in mock-server/data/staging/apiProxies.json
-- [ ] T034 [P] [US1] Create minimal dev caches.json (2 caches) in mock-server/data/dev/caches.json
-- [ ] T035 [P] [US1] Create minimal staging caches.json (2 caches) in mock-server/data/staging/caches.json
-- [ ] T036 [P] [US1] Create minimal dev kvms.json (2 KVMs) in mock-server/data/dev/kvms.json
-- [ ] T037 [P] [US1] Create minimal staging kvms.json (2 KVMs) in mock-server/data/staging/kvms.json
-- [ ] T038 [P] [US1] Create minimal dev targetServers.json (2 servers) in mock-server/data/dev/targetServers.json
-- [ ] T039 [P] [US1] Create minimal staging targetServers.json (2 servers) in mock-server/data/staging/targetServers.json
-- [ ] T040 [P] [US1] Create minimal dev references.json (2 refs) in mock-server/data/dev/references.json
-- [ ] T041 [P] [US1] Create minimal staging references.json (2 refs) in mock-server/data/staging/references.json
-- [ ] T042 [P] [US1] Create minimal dev keystores.json (2 keystores) in mock-server/data/dev/keystores.json
-- [ ] T043 [P] [US1] Create minimal staging keystores.json (2 keystores) in mock-server/data/staging/keystores.json
-- [ ] T044 [P] [US1] Create minimal dev virtualHosts.json (2 vhosts) in mock-server/data/dev/virtualHosts.json
-- [ ] T045 [P] [US1] Create minimal staging virtualHosts.json (2 vhosts) in mock-server/data/staging/virtualHosts.json
+- [X] T025 [US1] Create organizations.json with mock-org definition in mock-server/data/organizations.json
+- [X] T026 [P] [US1] Create dev environment.json in mock-server/data/dev/environment.json
+- [X] T027 [P] [US1] Create staging environment.json in mock-server/data/staging/environment.json
+- [X] T028 [P] [US1] Create minimal dev apps.json (3 apps) in mock-server/data/dev/apps.json
+- [X] T029 [P] [US1] Create minimal staging apps.json (3 apps, 2 matching dev) in mock-server/data/staging/apps.json
+- [X] T030 [P] [US1] Create minimal dev apiProducts.json (3 products) in mock-server/data/dev/apiProducts.json
+- [X] T031 [P] [US1] Create minimal staging apiProducts.json (3 products) in mock-server/data/staging/apiProducts.json
+- [X] T032 [P] [US1] Create minimal dev apiProxies.json with deployments (3 proxies) in mock-server/data/dev/apiProxies.json
+- [X] T033 [P] [US1] Create minimal staging apiProxies.json (3 proxies) in mock-server/data/staging/apiProxies.json
+- [X] T034 [P] [US1] Create minimal dev caches.json (2 caches) in mock-server/data/dev/caches.json
+- [X] T035 [P] [US1] Create minimal staging caches.json (2 caches) in mock-server/data/staging/caches.json
+- [X] T036 [P] [US1] Create minimal dev kvms.json (2 KVMs) in mock-server/data/dev/kvms.json
+- [X] T037 [P] [US1] Create minimal staging kvms.json (2 KVMs) in mock-server/data/staging/kvms.json
+- [X] T038 [P] [US1] Create minimal dev targetServers.json (2 servers) in mock-server/data/dev/targetServers.json
+- [X] T039 [P] [US1] Create minimal staging targetServers.json (2 servers) in mock-server/data/staging/targetServers.json
+- [X] T040 [P] [US1] Create minimal dev references.json (2 refs) in mock-server/data/dev/references.json
+- [X] T041 [P] [US1] Create minimal staging references.json (2 refs) in mock-server/data/staging/references.json
+- [X] T042 [P] [US1] Create minimal dev keystores.json (2 keystores) in mock-server/data/dev/keystores.json
+- [X] T043 [P] [US1] Create minimal staging keystores.json (2 keystores) in mock-server/data/staging/keystores.json
+- [X] T044 [P] [US1] Create minimal dev virtualHosts.json (2 vhosts) in mock-server/data/dev/virtualHosts.json
+- [X] T045 [P] [US1] Create minimal staging virtualHosts.json (2 vhosts) in mock-server/data/staging/virtualHosts.json
 
 #### Certificates
 
-- [ ] T046 [P] [US1] Generate valid.pem certificate (365 days validity) in mock-server/certs/valid.pem
+- [X] T046 [P] [US1] Generate valid.pem certificate (365 days validity) in mock-server/certs/valid.pem
 
 #### Dashboard Configuration
 
-- [ ] T047 [US1] Add mock instance configuration to config/apigee-config.yaml
+- [X] T047 [US1] Add mock instance configuration to config/apigee-config.yaml
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - dashboard can connect to mock server and display all entity types
 

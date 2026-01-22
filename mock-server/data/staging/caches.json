@@ -1,0 +1,28 @@
+{
+  "caches": [
+    {
+      "name": "session-cache",
+      "description": "User session cache",
+      "expirySettings": {
+        "timeoutInSec": { "value": "3600" },
+        "valuesNull": false
+      },
+      "overflowToDisk": false,
+      "skipCacheIfElementSizeInKBExceeds": "256",
+      "distributed": true,
+      "compression": { "minimumSizeInKB": 128 }
+    },
+    {
+      "name": "api-response-cache",
+      "description": "API response cache",
+      "expirySettings": {
+        "timeoutInSec": { "value": "1800" },
+        "valuesNull": false
+      },
+      "overflowToDisk": false,
+      "skipCacheIfElementSizeInKBExceeds": "512",
+      "distributed": true,
+      "compression": { "minimumSizeInKB": 256 }
+    }
+  ]
+}

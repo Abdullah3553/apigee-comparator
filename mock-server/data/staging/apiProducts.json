@@ -1,0 +1,64 @@
+{
+  "apiProduct": [
+    {
+      "name": "payment-api-product",
+      "displayName": "Payment API Product",
+      "description": "Provides access to payment processing APIs",
+      "approvalType": "auto",
+      "attributes": [
+        {
+          "name": "access",
+          "value": "public"
+        }
+      ],
+      "environments": ["staging"],
+      "proxies": ["payment-api-v1", "payment-api-v2"],
+      "quota": "1000",
+      "quotaInterval": "1",
+      "quotaTimeUnit": "hour",
+      "scopes": ["payments.read", "payments.write"],
+      "createdAt": 1700000000000,
+      "lastModifiedAt": 1700500000000
+    },
+    {
+      "name": "customer-api-product",
+      "displayName": "Customer API Product",
+      "description": "Provides access to customer data APIs",
+      "approvalType": "auto",
+      "attributes": [
+        {
+          "name": "access",
+          "value": "public"
+        }
+      ],
+      "environments": ["staging"],
+      "proxies": ["customer-api-v1"],
+      "quota": "5000",
+      "quotaInterval": "1",
+      "quotaTimeUnit": "day",
+      "scopes": ["customers.read"],
+      "createdAt": 1700100000000,
+      "lastModifiedAt": 1700600000000
+    },
+    {
+      "name": "admin-api-product",
+      "displayName": "Admin API Product",
+      "description": "Internal admin APIs",
+      "approvalType": "manual",
+      "attributes": [
+        {
+          "name": "access",
+          "value": "internal"
+        }
+      ],
+      "environments": ["staging"],
+      "proxies": ["admin-api-v1"],
+      "quota": "10000",
+      "quotaInterval": "1",
+      "quotaTimeUnit": "day",
+      "scopes": ["admin.read", "admin.write"],
+      "createdAt": 1700200000000,
+      "lastModifiedAt": 1700700000000
+    }
+  ]
+}

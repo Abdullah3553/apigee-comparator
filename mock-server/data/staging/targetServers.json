@@ -1,0 +1,26 @@
+{
+  "targetServers": [
+    {
+      "name": "payment-backend",
+      "host": "payment.staging.example.com",
+      "port": 443,
+      "isEnabled": true,
+      "sSLInfo": {
+        "enabled": true,
+        "clientAuthEnabled": false,
+        "keyStore": "ref://api-gateway-keystore",
+        "keyAlias": "api-gateway-cert",
+        "trustStore": "ref://api-gateway-truststore",
+        "ignoreValidationErrors": false,
+        "ciphers": ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"],
+        "protocols": ["TLSv1.2", "TLSv1.3"]
+      }
+    },
+    {
+      "name": "customer-backend",
+      "host": "customer.staging.example.com",
+      "port": 8443,
+      "isEnabled": true
+    }
+  ]
+}

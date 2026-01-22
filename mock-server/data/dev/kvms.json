@@ -1,0 +1,21 @@
+{
+  "kvms": [
+    {
+      "name": "app-config",
+      "encrypted": false,
+      "entry": [
+        { "name": "max_retries", "value": "3" },
+        { "name": "timeout_ms", "value": "5000" },
+        { "name": "feature_flag_new_ui", "value": "true" }
+      ]
+    },
+    {
+      "name": "api-keys",
+      "encrypted": true,
+      "entry": [
+        { "name": "stripe_key", "value": "****" },
+        { "name": "twilio_key", "value": "****" }
+      ]
+    }
+  ]
+}

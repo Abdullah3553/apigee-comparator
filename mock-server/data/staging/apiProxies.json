@@ -1,0 +1,105 @@
+{
+  "proxies": [
+    {
+      "name": "payment-api-v1",
+      "revision": ["1", "2", "3"],
+      "metaData": {
+        "createdAt": 1700000000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1700500000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "payment-api-v2",
+      "revision": ["1", "2"],
+      "metaData": {
+        "createdAt": 1700100000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1700600000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "customer-api-v1",
+      "revision": ["1", "2", "3", "4"],
+      "metaData": {
+        "createdAt": 1700200000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1700700000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    }
+  ],
+  "deployments": [
+    {
+      "name": "payment-api-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "staging",
+          "revision": [
+            {
+              "name": "3",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-101"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "payment-api-v2",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "staging",
+          "revision": [
+            {
+              "name": "2",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-102"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "customer-api-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "staging",
+          "revision": [
+            {
+              "name": "4",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-103"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

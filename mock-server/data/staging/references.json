@@ -1,0 +1,14 @@
+{
+  "references": [
+    {
+      "name": "api-gateway-keystore",
+      "refers": "api-gateway-certs",
+      "resourceType": "KeyStore"
+    },
+    {
+      "name": "api-gateway-truststore",
+      "refers": "api-gateway-trust",
+      "resourceType": "TrustStore"
+    }
+  ]
+}

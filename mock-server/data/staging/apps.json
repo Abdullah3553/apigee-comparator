@@ -33,7 +33,7 @@
       "name": "mobile-banking-app",
       "accessType": "read",
       "appFamily": "default",
-      "callbackUrl": "https://mobile.example.com/oauth",
+      "callbackUrl": "https://mobile-v2.example.com/oauth",
       "developerId": "dev-002",
       "status": "approved",
       "credentials": [
@@ -53,8 +53,36 @@
       ],
       "createdAt": 1700100000000,
       "createdBy": "dev@mock.com",
-      "lastModifiedAt": 1700600000000,
+      "lastModifiedAt": 1700650000000,
       "lastModifiedBy": "dev@mock.com"
+    },
+    {
+      "appId": "app-003",
+      "name": "internal-admin-app",
+      "accessType": "readwrite",
+      "appFamily": "default",
+      "callbackUrl": "https://admin.example.com/callback",
+      "developerId": "dev-003",
+      "status": "approved",
+      "credentials": [
+        {
+          "consumerKey": "key-003-staging",
+          "consumerSecret": "secret-003-staging",
+          "expiresAt": -1,
+          "issuedAt": 1700200000000,
+          "status": "approved",
+          "apiProducts": [
+            {
+              "apiproduct": "admin-api-product",
+              "status": "approved"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700200000000,
+      "createdBy": "admin@mock.com",
+      "lastModifiedAt": 1700700000000,
+      "lastModifiedBy": "admin@mock.com"
     },
     {
       "appId": "app-004",
@@ -82,6 +110,34 @@
       "createdAt": 1700300000000,
       "createdBy": "dev@mock.com",
       "lastModifiedAt": 1700800000000,
+      "lastModifiedBy": "dev@mock.com"
+    },
+    {
+      "appId": "app-005",
+      "name": "analytics-dashboard-app",
+      "accessType": "read",
+      "appFamily": "default",
+      "callbackUrl": "https://analytics.example.com/callback",
+      "developerId": "dev-005",
+      "status": "approved",
+      "credentials": [
+        {
+          "consumerKey": "key-005-staging",
+          "consumerSecret": "secret-005-staging",
+          "expiresAt": -1,
+          "issuedAt": 1700400000000,
+          "status": "approved",
+          "apiProducts": [
+            {
+              "apiproduct": "analytics-api-product",
+              "status": "approved"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700400000000,
+      "createdBy": "dev@mock.com",
+      "lastModifiedAt": 1700900000000,
       "lastModifiedBy": "dev@mock.com"
     }
   ]

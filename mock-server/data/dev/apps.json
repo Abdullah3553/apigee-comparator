@@ -83,6 +83,90 @@
       "createdBy": "admin@mock.com",
       "lastModifiedAt": 1700700000000,
       "lastModifiedBy": "admin@mock.com"
+    },
+    {
+      "appId": "app-005",
+      "name": "analytics-dashboard-app",
+      "accessType": "read",
+      "appFamily": "default",
+      "callbackUrl": "https://analytics.example.com/callback",
+      "developerId": "dev-005",
+      "status": "approved",
+      "credentials": [
+        {
+          "consumerKey": "key-005-dev",
+          "consumerSecret": "secret-005-dev",
+          "expiresAt": -1,
+          "issuedAt": 1700400000000,
+          "status": "approved",
+          "apiProducts": [
+            {
+              "apiproduct": "analytics-api-product",
+              "status": "approved"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700400000000,
+      "createdBy": "dev@mock.com",
+      "lastModifiedAt": 1700900000000,
+      "lastModifiedBy": "dev@mock.com"
+    },
+    {
+      "appId": "app-006",
+      "name": "test-automation-app",
+      "accessType": "readwrite",
+      "appFamily": "default",
+      "callbackUrl": "https://test.example.com/callback",
+      "developerId": "dev-006",
+      "status": "approved",
+      "credentials": [
+        {
+          "consumerKey": "key-006-dev",
+          "consumerSecret": "secret-006-dev",
+          "expiresAt": -1,
+          "issuedAt": 1700500000000,
+          "status": "approved",
+          "apiProducts": [
+            {
+              "apiproduct": "admin-api-product",
+              "status": "approved"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700500000000,
+      "createdBy": "dev@mock.com",
+      "lastModifiedAt": 1701000000000,
+      "lastModifiedBy": "dev@mock.com"
+    },
+    {
+      "appId": "app-007",
+      "name": "legacy-integration-app",
+      "accessType": "read",
+      "appFamily": "default",
+      "callbackUrl": "https://legacy.example.com/callback",
+      "developerId": "dev-007",
+      "status": "approved",
+      "credentials": [
+        {
+          "consumerKey": "key-007-dev",
+          "consumerSecret": "secret-007-dev",
+          "expiresAt": -1,
+          "issuedAt": 1700600000000,
+          "status": "approved",
+          "apiProducts": [
+            {
+              "apiproduct": "customer-api-product",
+              "status": "approved"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700600000000,
+      "createdBy": "dev@mock.com",
+      "lastModifiedAt": 1701100000000,
+      "lastModifiedBy": "dev@mock.com"
     }
   ]
 }

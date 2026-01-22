@@ -8,17 +8,17 @@
 # When USE_MOCK_SERVICE=false (default), each instance uses its configured management_url.
 
 instances:
-  # Production Instance
-  - name: "PROD"
-    management_url: "https://api.enterprise.apigee.com/v1"
-    org: "your-prod-org-name"
-    credentials:
-      username: "${APIGEE_PROD_USERNAME}"
-      password: "${APIGEE_PROD_PASSWORD}"
-    environments:
-      - "test"
-      - "staging"
-      - "production"
+  # Production Instance (uncomment and configure when ready to use real Apigee)
+  # - name: "PROD"
+  #   management_url: "https://api.enterprise.apigee.com/v1"
+  #   org: "your-prod-org-name"
+  #   credentials:
+  #     username: "${APIGEE_PROD_USERNAME}"
+  #     password: "${APIGEE_PROD_PASSWORD}"
+  #   environments:
+  #     - "test"
+  #     - "staging"
+  #     - "production"
 
   # Development Instance (example - uncomment and configure if needed)
   # - name: "DEV"
@@ -31,9 +31,10 @@ instances:
   #     - "dev"
   #     - "qa"
 
-  # Mock Server Instance
+  # Mock Server Instance (active for local development)
   # Use this instance directly when USE_MOCK_SERVICE=false but you want to test with mock data
   # Or set USE_MOCK_SERVICE=true to redirect ALL instances to the mock server
+  # Note: management_url uses localhost for non-Docker runs; Docker uses MOCK_SERVER_URL env var
   - name: "MOCK"
     management_url: "http://localhost:8080/v1"
     org: "mock-org"

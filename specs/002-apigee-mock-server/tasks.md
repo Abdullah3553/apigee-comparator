@@ -163,16 +163,16 @@ This project uses a monorepo structure with a new `mock-server/` directory at th
 
 #### Issue Scenario Certificates
 
-- [ ] T066 [P] [US3] Generate expired.pem certificate (expired 30 days ago) in mock-server/certs/expired.pem
-- [ ] T067 [P] [US3] Generate expiring-soon.pem certificate (15 days validity) in mock-server/certs/expiring-soon.pem
+- [X] T066 [P] [US3] Generate expired.pem certificate (expired 30 days ago) in mock-server/certs/expired.pem
+- [X] T067 [P] [US3] Generate expiring-soon.pem certificate (15 days validity) in mock-server/certs/expiring-soon.pem
 
 #### Issue Scenario Mock Data
 
-- [ ] T068 [US3] Add revoked app deprecated-partner-app to dev apps.json in mock-server/data/dev/apps.json
-- [ ] T069 [US3] Add undeployed proxy legacy-api-v1 to staging apiProxies.json with empty deployments in mock-server/data/staging/apiProxies.json
-- [ ] T070 [US3] Add disabled target server old-backend to dev targetServers.json with isEnabled:false in mock-server/data/dev/targetServers.json
-- [ ] T071 [US3] Add payment-certs keystore with expired cert alias to dev keystores.json in mock-server/data/dev/keystores.json
-- [ ] T072 [US3] Add api-gateway-certs keystore with expiring-soon cert alias to staging keystores.json in mock-server/data/staging/keystores.json
+- [X] T068 [US3] Add revoked app deprecated-partner-app to dev apps.json in mock-server/data/dev/apps.json
+- [X] T069 [US3] Add undeployed proxy legacy-api-v1 to staging apiProxies.json with empty deployments in mock-server/data/staging/apiProxies.json
+- [X] T070 [US3] Add disabled target server old-backend to dev targetServers.json with isEnabled:false in mock-server/data/dev/targetServers.json
+- [X] T071 [US3] Add payment-certs keystore with expired cert alias to dev keystores.json in mock-server/data/dev/keystores.json
+- [X] T072 [US3] Add api-gateway-certs keystore with expiring-soon cert alias to staging keystores.json in mock-server/data/staging/keystores.json
 
 **Checkpoint**: All user stories 1-3 should now be functional with full issue detection testing
 

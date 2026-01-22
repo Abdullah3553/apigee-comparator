@@ -24,7 +24,12 @@
       "Bash(git config:*)",
       "Bash(git fetch:*)",
       "Bash(ls:*)",
-      "Bash(.specify/scripts/bash/create-new-feature.sh:*)"
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
+      "Bash(openssl req:*)",
+      "Bash(npm install:*)",
+      "Bash(wc:*)",
+      "Bash(kill:*)",
+      "Bash(sudo chown:*)"
     ]
   }
 }

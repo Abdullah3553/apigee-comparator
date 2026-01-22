@@ -49,6 +49,12 @@
       "host": "old.dev.example.com",
       "port": 8000,
       "isEnabled": true
+    },
+    {
+      "name": "old-backend",
+      "host": "deprecated.dev.example.com",
+      "port": 8080,
+      "isEnabled": false
     }
   ]
 }

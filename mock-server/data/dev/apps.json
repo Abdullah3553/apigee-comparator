@@ -167,6 +167,34 @@
       "createdBy": "dev@mock.com",
       "lastModifiedAt": 1701100000000,
       "lastModifiedBy": "dev@mock.com"
+    },
+    {
+      "appId": "app-008",
+      "name": "deprecated-partner-app",
+      "accessType": "read",
+      "appFamily": "default",
+      "callbackUrl": "https://deprecated.example.com/callback",
+      "developerId": "dev-008",
+      "status": "revoked",
+      "credentials": [
+        {
+          "consumerKey": "key-008-dev",
+          "consumerSecret": "secret-008-dev",
+          "expiresAt": -1,
+          "issuedAt": 1700700000000,
+          "status": "revoked",
+          "apiProducts": [
+            {
+              "apiproduct": "payment-api-product",
+              "status": "revoked"
+            }
+          ]
+        }
+      ],
+      "createdAt": 1700700000000,
+      "createdBy": "dev@mock.com",
+      "lastModifiedAt": 1701200000000,
+      "lastModifiedBy": "admin@mock.com"
     }
   ]
 }

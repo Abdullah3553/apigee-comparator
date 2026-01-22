@@ -87,6 +87,17 @@
         "lastModifiedBy": "ops@mock.com"
       },
       "type": "Application"
+    },
+    {
+      "name": "legacy-api-v1",
+      "revision": ["1", "2"],
+      "metaData": {
+        "createdAt": 1699000000000,
+        "createdBy": "legacy@mock.com",
+        "lastModifiedAt": 1700000000000,
+        "lastModifiedBy": "legacy@mock.com"
+      },
+      "type": "Application"
     }
   ],
   "deployments": [
@@ -265,6 +276,11 @@
           ]
         }
       ]
+    },
+    {
+      "name": "legacy-api-v1",
+      "organization": "mock-org",
+      "environment": []
     }
   ]
 }

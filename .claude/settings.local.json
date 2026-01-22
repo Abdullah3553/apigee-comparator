@@ -29,7 +29,13 @@
       "Bash(npm install:*)",
       "Bash(wc:*)",
       "Bash(kill:*)",
-      "Bash(sudo chown:*)"
+      "Bash(sudo chown:*)",
+      "Bash(for file in /home/uni/vscode/apigee-comparator/mock-server/data/dev/*.json /home/uni/vscode/apigee-comparator/mock-server/data/staging/*.json)",
+      "Bash(do echo \"Checking $file\")",
+      "Bash(python3:*)",
+      "Bash(done)",
+      "Bash(timeout 3 npm start:*)",
+      "Bash(grep:*)"
     ]
   }
 }

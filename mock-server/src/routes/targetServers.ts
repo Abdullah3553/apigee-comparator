@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { loadData } from '../data/loader';
 import { NotFoundError } from '../middleware/errorHandler';
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 interface TargetServer {
   name: string;

@@ -1,0 +1,24 @@
+{
+  "references": [
+    {
+      "name": "api-gateway-keystore",
+      "refers": "api-gateway-certs",
+      "resourceType": "KeyStore"
+    },
+    {
+      "name": "api-gateway-truststore",
+      "refers": "api-gateway-trust",
+      "resourceType": "TrustStore"
+    },
+    {
+      "name": "analytics-keystore",
+      "refers": "shared-analytics-certs",
+      "resourceType": "KeyStore"
+    },
+    {
+      "name": "analytics-truststore",
+      "refers": "analytics-trust",
+      "resourceType": "TrustStore"
+    }
+  ]
+}

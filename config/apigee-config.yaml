@@ -25,6 +25,17 @@ instances:
   #     - "dev"
   #     - "qa"
 
+  # Mock Server Instance (for local development without Apigee access)
+  - name: "MOCK"
+    management_url: "http://localhost:8080/v1"
+    org: "mock-org"
+    credentials:
+      username: "mock"
+      password: "mock"
+    environments:
+      - "dev"
+      - "staging"
+
 # Notes:
 # - Credentials use environment variable interpolation: ${VAR_NAME}
 # - Environment variable pattern: APIGEE_{INSTANCE_NAME}_USERNAME/PASSWORD

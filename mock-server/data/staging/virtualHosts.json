@@ -1,0 +1,53 @@
+{
+  "virtualHosts": [
+    {
+      "name": "default",
+      "hostAliases": ["api.staging.example.com"],
+      "interfaces": [],
+      "port": "443",
+      "baseUrl": "https://api.staging.example.com",
+      "sSLInfo": {
+        "enabled": true,
+        "keyStore": "ref://api-gateway-keystore",
+        "keyAlias": "api-gateway-cert",
+        "trustStore": "ref://api-gateway-truststore",
+        "clientAuthEnabled": false
+      },
+      "properties": {
+        "property": [
+          { "name": "proxy_read_timeout", "value": "60" }
+        ]
+      }
+    },
+    {
+      "name": "secure",
+      "hostAliases": ["secure.staging.example.com"],
+      "interfaces": [],
+      "port": "8443",
+      "baseUrl": "https://secure.staging.example.com:8443",
+      "sSLInfo": {
+        "enabled": true,
+        "keyStore": "ref://api-gateway-keystore",
+        "keyAlias": "api-gateway-cert",
+        "trustStore": "ref://api-gateway-truststore",
+        "clientAuthEnabled": true
+      },
+      "properties": {
+        "property": []
+      }
+    },
+    {
+      "name": "legacy",
+      "hostAliases": ["legacy.staging.example.com", "old-api.staging.example.com"],
+      "interfaces": [],
+      "port": "80",
+      "baseUrl": "http://legacy.staging.example.com",
+      "properties": {
+        "property": [
+          { "name": "proxy_read_timeout", "value": "60" },
+          { "name": "deprecated", "value": "true" }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "targetServers": [
+    {
+      "name": "payment-backend",
+      "host": "payment.dev.example.com",
+      "port": 443,
+      "isEnabled": true,
+      "sSLInfo": {
+        "enabled": true,
+        "clientAuthEnabled": false,
+        "keyStore": "ref://api-gateway-keystore",
+        "keyAlias": "api-gateway-cert",
+        "trustStore": "ref://api-gateway-truststore",
+        "ignoreValidationErrors": false,
+        "ciphers": ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"],
+        "protocols": ["TLSv1.2", "TLSv1.3"]
+      }
+    },
+    {
+      "name": "customer-backend",
+      "host": "customer.dev.example.com",
+      "port": 8443,
+      "isEnabled": true
+    },
+    {
+      "name": "analytics-backend",
+      "host": "analytics.dev.example.com",
+      "port": 443,
+      "isEnabled": true,
+      "sSLInfo": {
+        "enabled": true,
+        "clientAuthEnabled": true,
+        "keyStore": "ref://analytics-keystore",
+        "keyAlias": "analytics-cert",
+        "trustStore": "ref://analytics-truststore",
+        "ignoreValidationErrors": false,
+        "ciphers": ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"],
+        "protocols": ["TLSv1.2", "TLSv1.3"]
+      }
+    },
+    {
+      "name": "notification-backend",
+      "host": "notify.dev.example.com",
+      "port": 8080,
+      "isEnabled": true
+    },
+    {
+      "name": "legacy-backend",
+      "host": "old.dev.example.com",
+      "port": 8000,
+      "isEnabled": true
+    },
+    {
+      "name": "old-backend",
+      "host": "deprecated.dev.example.com",
+      "port": 8080,
+      "isEnabled": false
+    }
+  ]
+}

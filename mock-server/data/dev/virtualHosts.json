@@ -1,0 +1,53 @@
+{
+  "virtualHosts": [
+    {
+      "name": "default",
+      "hostAliases": ["api.dev.example.com"],
+      "interfaces": [],
+      "port": "443",
+      "baseUrl": "https://api.dev.example.com",
+      "sSLInfo": {
+        "enabled": true,
+        "keyStore": "ref://api-gateway-keystore",
+        "keyAlias": "api-gateway-cert",
+        "trustStore": "ref://api-gateway-truststore",
+        "clientAuthEnabled": false
+      },
+      "properties": {
+        "property": [
+          { "name": "proxy_read_timeout", "value": "60" }
+        ]
+      }
+    },
+    {
+      "name": "secure",
+      "hostAliases": ["secure.dev.example.com"],
+      "interfaces": [],
+      "port": "8443",
+      "baseUrl": "https://secure.dev.example.com:8443",
+      "sSLInfo": {
+        "enabled": true,
+        "keyStore": "ref://api-gateway-keystore",
+        "keyAlias": "api-gateway-cert",
+        "trustStore": "ref://api-gateway-truststore",
+        "clientAuthEnabled": true
+      },
+      "properties": {
+        "property": []
+      }
+    },
+    {
+      "name": "legacy",
+      "hostAliases": ["legacy.dev.example.com", "old-api.dev.example.com"],
+      "interfaces": [],
+      "port": "80",
+      "baseUrl": "http://legacy.dev.example.com",
+      "properties": {
+        "property": [
+          { "name": "proxy_read_timeout", "value": "30" },
+          { "name": "deprecated", "value": "true" }
+        ]
+      }
+    }
+  ]
+}

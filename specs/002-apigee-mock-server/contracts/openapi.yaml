@@ -1,0 +1,1042 @@
+openapi: 3.0.3
+info:
+  title: Apigee Mock Management Server API
+  description: |
+    Mock server that replicates Apigee Edge Management API endpoints for local development.
+    Returns static JSON data matching the exact response structures of the real Apigee API.
+
+    **Source**: This contract is derived from the official Apigee Management API spec
+    at `APIGEE_MNGMNT_API.yaml`. The full spec is available at
+    `contracts/apigee-management-api.yaml`.
+
+    **Scope**: This mock implements the subset of endpoints used by the Apigee Monitor Dashboard.
+    Additional endpoints (Developers, Shared Flows, Flow Hooks, Analytics, User Roles) are
+    documented in the full spec but NOT implemented in the mock server (out of scope).
+  version: 1.0.0
+  contact:
+    name: Apigee Monitor Dashboard Team
+
+servers:
+  - url: http://localhost:8080/v1
+    description: Local mock server
+
+security:
+  - basicAuth: []
+
+paths:
+  /organizations:
+    get:
+      summary: List all organizations
+      operationId: listOrganizations
+      tags: [Organizations]
+      responses:
+        '200':
+          description: List of organization names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["mock-org"]
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /organizations/{org}:
+    get:
+      summary: Get organization details
+      operationId: getOrganization
+      tags: [Organizations]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+      responses:
+        '200':
+          description: Organization details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments:
+    get:
+      summary: List environments in organization
+      operationId: listEnvironments
+      tags: [Environments]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+      responses:
+        '200':
+          description: List of environment names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["dev", "staging"]
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}:
+    get:
+      summary: Get environment details
+      operationId: getEnvironment
+      tags: [Environments]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+      responses:
+        '200':
+          description: Environment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/apps:
+    get:
+      summary: List all apps in organization
+      operationId: listApps
+      tags: [Apps]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - name: expand
+          in: query
+          schema:
+            type: boolean
+            default: true
+          description: Return full app details (always true for mock)
+      responses:
+        '200':
+          description: List of apps
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  app:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/App'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/apps/{appId}:
+    get:
+      summary: Get app details
+      operationId: getApp
+      tags: [Apps]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: App details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/apiproducts:
+    get:
+      summary: List all API products
+      operationId: listApiProducts
+      tags: [API Products]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - name: expand
+          in: query
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: List of API products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiProduct:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiProduct'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/apiproducts/{productName}:
+    get:
+      summary: Get API product details
+      operationId: getApiProduct
+      tags: [API Products]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - name: productName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiProduct'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/apis:
+    get:
+      summary: List all API proxies
+      operationId: listApiProxies
+      tags: [API Proxies]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+      responses:
+        '200':
+          description: List of API proxy names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/apis/{apiName}:
+    get:
+      summary: Get API proxy details
+      operationId: getApiProxy
+      tags: [API Proxies]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - name: apiName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API proxy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiProxy'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/apis/{apiName}/deployments:
+    get:
+      summary: Get API proxy deployment status
+      operationId: getApiProxyDeployments
+      tags: [API Proxies]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - name: apiName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deployment status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProxyDeployment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/caches:
+    get:
+      summary: List caches in environment
+      operationId: listCaches
+      tags: [Caches]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+      responses:
+        '200':
+          description: List of cache names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/caches/{cacheName}:
+    get:
+      summary: Get cache details
+      operationId: getCache
+      tags: [Caches]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+        - name: cacheName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cache details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cache'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/keyvaluemaps:
+    get:
+      summary: List KVMs in environment
+      operationId: listKvms
+      tags: [KVMs]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+      responses:
+        '200':
+          description: List of KVM names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/keyvaluemaps/{kvmName}:
+    get:
+      summary: Get KVM details
+      operationId: getKvm
+      tags: [KVMs]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+        - name: kvmName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: KVM details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kvm'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/targetservers:
+    get:
+      summary: List target servers in environment
+      operationId: listTargetServers
+      tags: [Target Servers]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+      responses:
+        '200':
+          description: List of target server names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/targetservers/{serverName}:
+    get:
+      summary: Get target server details
+      operationId: getTargetServer
+      tags: [Target Servers]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+        - name: serverName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Target server details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetServer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/references:
+    get:
+      summary: List references in environment
+      operationId: listReferences
+      tags: [References]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+      responses:
+        '200':
+          description: List of reference names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/references/{refName}:
+    get:
+      summary: Get reference details
+      operationId: getReference
+      tags: [References]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+        - name: refName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reference details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reference'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/keystores:
+    get:
+      summary: List keystores in environment
+      operationId: listKeystores
+      tags: [Keystores]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+      responses:
+        '200':
+          description: List of keystore names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/keystores/{keystoreName}:
+    get:
+      summary: Get keystore details
+      operationId: getKeystore
+      tags: [Keystores]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+        - name: keystoreName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Keystore details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Keystore'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/keystores/{keystoreName}/aliases/{aliasName}:
+    get:
+      summary: Get certificate alias details (PEM)
+      operationId: getCertificateAlias
+      tags: [Keystores]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+        - name: keystoreName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: aliasName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Certificate alias with PEM
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateAlias'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/virtualhosts:
+    get:
+      summary: List virtual hosts in environment
+      operationId: listVirtualHosts
+      tags: [Virtual Hosts]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+      responses:
+        '200':
+          description: List of virtual host names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /organizations/{org}/environments/{env}/virtualhosts/{vhostName}:
+    get:
+      summary: Get virtual host details
+      operationId: getVirtualHost
+      tags: [Virtual Hosts]
+      parameters:
+        - $ref: '#/components/parameters/orgPath'
+        - $ref: '#/components/parameters/envPath'
+        - name: vhostName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Virtual host details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualHost'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Use credentials mock/mock
+
+  parameters:
+    orgPath:
+      name: org
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Organization name (mock-org for mock server)
+      example: mock-org
+
+    envPath:
+      name: env
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Environment name (dev or staging for mock server)
+      example: dev
+
+  responses:
+    Unauthorized:
+      description: Invalid or missing Basic Auth credentials
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Unauthorized"
+              message:
+                type: string
+                example: "Invalid credentials. Use mock/mock for Basic Auth."
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Not Found"
+              message:
+                type: string
+                example: "Organization 'unknown-org' not found"
+
+  schemas:
+    Organization:
+      type: object
+      required: [name, displayName, type, createdAt, createdBy, lastModifiedAt, lastModifiedBy, environments, properties]
+      properties:
+        name:
+          type: string
+          example: "mock-org"
+        displayName:
+          type: string
+          example: "Mock Organization"
+        type:
+          type: string
+          enum: [paid, trial]
+        createdAt:
+          type: integer
+          format: int64
+          description: Epoch timestamp in milliseconds
+        createdBy:
+          type: string
+          format: email
+        lastModifiedAt:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+          format: email
+        environments:
+          type: array
+          items:
+            type: string
+        properties:
+          $ref: '#/components/schemas/Properties'
+
+    Environment:
+      type: object
+      required: [name, createdAt, createdBy, lastModifiedAt, lastModifiedBy, properties]
+      properties:
+        name:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        createdBy:
+          type: string
+          format: email
+        lastModifiedAt:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+          format: email
+        properties:
+          $ref: '#/components/schemas/Properties'
+
+    App:
+      type: object
+      required: [appId, name, status, credentials, createdAt]
+      properties:
+        appId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        accessType:
+          type: string
+        appFamily:
+          type: string
+        callbackUrl:
+          type: string
+          format: uri
+        developerId:
+          type: string
+        status:
+          type: string
+          enum: [approved, revoked]
+        credentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Credential'
+        createdAt:
+          type: integer
+          format: int64
+        createdBy:
+          type: string
+        lastModifiedAt:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+
+    Credential:
+      type: object
+      properties:
+        consumerKey:
+          type: string
+        consumerSecret:
+          type: string
+        expiresAt:
+          type: integer
+          format: int64
+        issuedAt:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum: [approved, revoked]
+        apiProducts:
+          type: array
+          items:
+            type: object
+            properties:
+              apiproduct:
+                type: string
+              status:
+                type: string
+                enum: [approved, revoked, pending]
+
+    ApiProduct:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        approvalType:
+          type: string
+          enum: [auto, manual]
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        environments:
+          type: array
+          items:
+            type: string
+        proxies:
+          type: array
+          items:
+            type: string
+        quota:
+          type: string
+        quotaInterval:
+          type: string
+        quotaTimeUnit:
+          type: string
+          enum: [minute, hour, day, month]
+        scopes:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+
+    ApiProxy:
+      type: object
+      required: [name, revision, metaData, type]
+      properties:
+        name:
+          type: string
+        revision:
+          type: array
+          items:
+            type: string
+        metaData:
+          type: object
+          properties:
+            createdAt:
+              type: integer
+              format: int64
+            createdBy:
+              type: string
+            lastModifiedAt:
+              type: integer
+              format: int64
+            lastModifiedBy:
+              type: string
+        type:
+          type: string
+          enum: [Application]
+
+    ProxyDeployment:
+      type: object
+      properties:
+        name:
+          type: string
+        organization:
+          type: string
+        environment:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              revision:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    state:
+                      type: string
+                      enum: [deployed, error]
+                    server:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                          type:
+                            type: string
+                          uUID:
+                            type: string
+
+    Cache:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        expirySettings:
+          type: object
+          properties:
+            timeoutInSec:
+              type: object
+              properties:
+                value:
+                  type: string
+            valuesNull:
+              type: boolean
+        overflowToDisk:
+          type: boolean
+        skipCacheIfElementSizeInKBExceeds:
+          type: string
+        distributed:
+          type: boolean
+        compression:
+          type: object
+          properties:
+            minimumSizeInKB:
+              type: integer
+
+    Kvm:
+      type: object
+      required: [name, encrypted, entry]
+      properties:
+        name:
+          type: string
+        encrypted:
+          type: boolean
+        entry:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+
+    TargetServer:
+      type: object
+      required: [name, host, port, isEnabled]
+      properties:
+        name:
+          type: string
+        host:
+          type: string
+        port:
+          type: integer
+        isEnabled:
+          type: boolean
+        sSLInfo:
+          $ref: '#/components/schemas/SSLInfo'
+
+    Reference:
+      type: object
+      required: [name, refers, resourceType]
+      properties:
+        name:
+          type: string
+        refers:
+          type: string
+        resourceType:
+          type: string
+          enum: [KeyStore, TrustStore]
+
+    Keystore:
+      type: object
+      required: [name, aliases, certs]
+      properties:
+        name:
+          type: string
+        aliases:
+          type: array
+          items:
+            type: string
+        certs:
+          type: array
+          items:
+            type: string
+
+    CertificateAlias:
+      type: object
+      required: [alias, type, format, certificate]
+      properties:
+        alias:
+          type: string
+        type:
+          type: string
+          enum: [keycert, cert]
+        format:
+          type: string
+          enum: [pem]
+        certificate:
+          type: string
+          description: Raw PEM certificate string
+
+    VirtualHost:
+      type: object
+      required: [name, port]
+      properties:
+        name:
+          type: string
+        hostAliases:
+          type: array
+          items:
+            type: string
+        interfaces:
+          type: array
+          items:
+            type: string
+        port:
+          type: string
+        baseUrl:
+          type: string
+          format: uri
+        sSLInfo:
+          $ref: '#/components/schemas/SSLInfo'
+        properties:
+          $ref: '#/components/schemas/Properties'
+
+    SSLInfo:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        clientAuthEnabled:
+          type: boolean
+        keyStore:
+          type: string
+        keyAlias:
+          type: string
+        trustStore:
+          type: string
+        ignoreValidationErrors:
+          type: boolean
+        ciphers:
+          type: array
+          items:
+            type: string
+        protocols:
+          type: array
+          items:
+            type: string
+
+    Properties:
+      type: object
+      properties:
+        property:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+
+    Attribute:
+      type: object
+      required: [name, value]
+      properties:
+        name:
+          type: string
+        value:
+          type: string

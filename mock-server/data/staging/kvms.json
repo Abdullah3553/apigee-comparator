@@ -1,0 +1,39 @@
+{
+  "kvms": [
+    {
+      "name": "app-config",
+      "encrypted": false,
+      "entry": [
+        { "name": "max_retries", "value": "3" },
+        { "name": "timeout_ms", "value": "5000" },
+        { "name": "feature_flag_new_ui", "value": "true" }
+      ]
+    },
+    {
+      "name": "api-keys",
+      "encrypted": true,
+      "entry": [
+        { "name": "stripe_key", "value": "****" },
+        { "name": "twilio_key", "value": "****" }
+      ]
+    },
+    {
+      "name": "service-endpoints",
+      "encrypted": false,
+      "entry": [
+        { "name": "payment_service_url", "value": "https://payments.staging.example.com" },
+        { "name": "notification_service_url", "value": "https://notify.staging.example.com" },
+        { "name": "analytics_service_url", "value": "https://analytics.staging.example.com" }
+      ]
+    },
+    {
+      "name": "production-config",
+      "encrypted": false,
+      "entry": [
+        { "name": "enable_monitoring", "value": "true" },
+        { "name": "log_level", "value": "warn" },
+        { "name": "cache_ttl_seconds", "value": "3600" }
+      ]
+    }
+  ]
+}

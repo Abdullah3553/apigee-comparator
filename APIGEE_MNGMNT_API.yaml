@@ -1,0 +1,1736 @@
+openapi: 3.0.3
+info:
+  title: Apigee Edge Management API
+  description: Complete API specification for Apigee Edge Management API - For Mock Server Development
+  version: 1.0.0
+  contact:
+    name: Apigee Edge
+    url: https://cloud.google.com/apigee/docs
+servers:
+  - url: https://api.enterprise.apigee.com/v1
+    description: Apigee Edge SaaS
+  - url: http://{management-server}:8080/v1
+    description: Private Cloud/On-premises
+    variables:
+      management-server:
+        default: localhost
+        description: Management Server hostname/IP
+
+paths:
+  # ========== ORGANIZATIONS ==========
+  /organizations:
+    get:
+      tags: [Organizations]
+      summary: List all organizations
+      operationId: listOrganizations
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["my-org-1", "my-org-2"]
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /organizations/{org}:
+    get:
+      tags: [Organizations]
+      summary: Get organization details
+      operationId: getOrganization
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Organization details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+              example:
+                name: "my-org-1"
+                displayName: "My Organization"
+                type: "paid"
+                createdAt: 1672531200000
+                createdBy: "admin@example.com"
+                lastModifiedAt: 1672531200000
+                lastModifiedBy: "admin@example.com"
+                environments: ["test", "prod"]
+                properties:
+                  property:
+                    - name: "features.isCpsEnabled"
+                      value: "true"
+
+  # ========== ENVIRONMENTS ==========
+  /organizations/{org}/environments:
+    get:
+      tags: [Environments]
+      summary: List environments in an organization
+      operationId: listEnvironments
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of environments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["test", "prod", "dev"]
+
+  /organizations/{org}/environments/{env}:
+    get:
+      tags: [Environments]
+      summary: Get environment details
+      operationId: getEnvironment
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Environment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+              example:
+                name: "test"
+                createdAt: 1672531200000
+                createdBy: "ops@example.com"
+                lastModifiedAt: 1672531200000
+                lastModifiedBy: "ops@example.com"
+                properties:
+                  property:
+                    - name: "enable.analytics"
+                      value: "true"
+                    - name: "allow.http.method.POST"
+                      value: "true"
+
+  # ========== API PROXIES ==========
+  /organizations/{org}/apis:
+    get:
+      tags: [API Proxies]
+      summary: List all API proxies
+      operationId: listApiProxies
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of API proxy names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["customer-api-v1", "inventory-api-v1", "payment-api-v2"]
+
+  /organizations/{org}/apis/{apiName}:
+    get:
+      tags: [API Proxies]
+      summary: Get API proxy details
+      operationId: getApiProxy
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: apiName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API proxy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiProxy'
+              example:
+                name: "customer-api-v1"
+                revision: ["1", "2", "3"]
+                metaData:
+                  createdAt: 1672531200000
+                  createdBy: "dev@example.com"
+                  lastModifiedAt: 1675123200000
+                  lastModifiedBy: "dev@example.com"
+                type: "Application"
+
+  /organizations/{org}/apis/{apiName}/deployments:
+    get:
+      tags: [API Proxies]
+      summary: Get deployment status for an API proxy
+      operationId: getApiDeployments
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: apiName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deployment status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+              example:
+                environment:
+                  - name: "test"
+                    revision:
+                      - name: "3"
+                        state: "deployed"
+                        server:
+                          - status: "deployed"
+                            type: "message-processor"
+                            uUID: "942629d8-90fa-40c6-a67b-111111111111"
+                  - name: "prod"
+                    revision:
+                      - name: "2"
+                        state: "deployed"
+                        server:
+                          - status: "deployed"
+                            type: "message-processor"
+                            uUID: "942629d8-90fa-40c6-a67b-222222222222"
+                name: "customer-api-v1"
+                organization: "my-org-1"
+
+  /organizations/{org}/apis/{apiName}/revisions/{revision}:
+    get:
+      tags: [API Proxies]
+      summary: Get specific revision of API proxy
+      operationId: getApiRevision
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: apiName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: revision
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API proxy revision details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  revision:
+                    type: string
+                  configuration:
+                    type: object
+              example:
+                name: "customer-api-v1"
+                revision: "3"
+                configuration:
+                  basePath: "/customer/v1"
+                  proxies:
+                    - name: "default"
+                  targets:
+                    - name: "default"
+
+  # ========== API PRODUCTS ==========
+  /organizations/{org}/apiproducts:
+    get:
+      tags: [API Products]
+      summary: List API products
+      operationId: listApiProducts
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: List of API products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiProductList'
+              example:
+                apiProduct:
+                  - name: "Gold-Product"
+                    displayName: "Gold Tier API Access"
+                    description: "Premium access to all APIs"
+                    approvalType: "manual"
+                    environments: ["test", "prod"]
+                    proxies: ["customer-api-v1", "inventory-api-v1"]
+                    quota: "10000"
+                    quotaInterval: "1"
+                    quotaTimeUnit: "month"
+                    scopes: ["read", "write"]
+                    createdAt: 1672531200000
+                    lastModifiedAt: 1672531200000
+
+  /organizations/{org}/apiproducts/{productName}:
+    get:
+      tags: [API Products]
+      summary: Get API product details
+      operationId: getApiProduct
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: productName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiProduct'
+              example:
+                name: "Gold-Product"
+                displayName: "Gold Tier API Access"
+                description: "Premium access to all APIs"
+                approvalType: "manual"
+                attributes:
+                  - name: "access"
+                    value: "public"
+                environments: ["test", "prod"]
+                proxies: ["customer-api-v1", "inventory-api-v1"]
+                quota: "10000"
+                quotaInterval: "1"
+                quotaTimeUnit: "month"
+                scopes: ["read", "write"]
+                createdAt: 1672531200000
+                lastModifiedAt: 1672531200000
+
+  # ========== DEVELOPER APPS ==========
+  /organizations/{org}/apps:
+    get:
+      tags: [Developer Apps]
+      summary: List developer applications
+      operationId: listDeveloperApps
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: List of developer apps
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeveloperAppList'
+              example:
+                app:
+                  - appId: "093485-304985-349085"
+                    name: "MyPartnerApp"
+                    accessType: "read"
+                    appFamily: "default"
+                    callbackUrl: "https://partner.com/callback"
+                    developerId: "dev-uuid-1234"
+                    status: "approved"
+                    credentials:
+                      - consumerKey: "client_id_example_123"
+                        consumerSecret: "client_secret_example_456"
+                        expiresAt: -1
+                        issuedAt: 1672531200000
+                        status: "approved"
+                        apiProducts:
+                          - apiproduct: "Gold-Product"
+                            status: "approved"
+
+  /organizations/{org}/apps/{appName}:
+    get:
+      tags: [Developer Apps]
+      summary: Get developer application details
+      operationId: getDeveloperApp
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: appName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Developer app details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeveloperApp'
+              example:
+                appId: "093485-304985-349085"
+                name: "MyPartnerApp"
+                accessType: "read"
+                appFamily: "default"
+                callbackUrl: "https://partner.com/callback"
+                developerId: "dev-uuid-1234"
+                status: "approved"
+                credentials:
+                  - consumerKey: "client_id_example_123"
+                    consumerSecret: "client_secret_example_456"
+                    expiresAt: -1
+                    issuedAt: 1672531200000
+                    status: "approved"
+                    apiProducts:
+                      - apiproduct: "Gold-Product"
+                        status: "approved"
+
+  # ========== DEVELOPERS ==========
+  /organizations/{org}/developers:
+    get:
+      tags: [Developers]
+      summary: List developers
+      operationId: listDevelopers
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: List of developers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeveloperList'
+              example:
+                developer:
+                  - email: "developer1@example.com"
+                    firstName: "John"
+                    lastName: "Doe"
+                    userName: "johndoe"
+                    status: "active"
+                    apps: ["MyPartnerApp", "TestApp"]
+                    createdAt: 1672531200000
+                    lastModifiedAt: 1672531200000
+
+  /organizations/{org}/developers/{developerEmail}:
+    get:
+      tags: [Developers]
+      summary: Get developer details
+      operationId: getDeveloper
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: developerEmail
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Developer details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Developer'
+              example:
+                email: "developer1@example.com"
+                firstName: "John"
+                lastName: "Doe"
+                userName: "johndoe"
+                status: "active"
+                apps: ["MyPartnerApp", "TestApp"]
+                createdAt: 1672531200000
+                lastModifiedAt: 1672531200000
+
+  # ========== TARGET SERVERS ==========
+  /organizations/{org}/environments/{env}/targetservers:
+    get:
+      tags: [Target Servers]
+      summary: List target servers in environment
+      operationId: listTargetServers
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of target servers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["backend-payments", "backend-legacy", "inventory-backend"]
+
+  /organizations/{org}/environments/{env}/targetservers/{targetName}:
+    get:
+      tags: [Target Servers]
+      summary: Get target server details
+      operationId: getTargetServer
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: targetName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Target server details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetServer'
+              example:
+                name: "backend-payments"
+                host: "api.backend.internal"
+                port: 443
+                isEnabled: true
+                sSLInfo:
+                  enabled: true
+                  clientAuthEnabled: true
+                  keyStore: "ref://my-keystore-ref"
+                  keyAlias: "my-client-cert"
+                  trustStore: "ref://my-truststore-ref"
+                  ignoreValidationErrors: false
+
+  # ========== KEY VALUE MAPS ==========
+  /organizations/{org}/environments/{env}/keyvaluemaps:
+    get:
+      tags: [Key Value Maps]
+      summary: List KVM maps in environment
+      operationId: listKeyValueMaps
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of KVM names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["config-settings", "feature-flags", "oauth-tokens"]
+
+  /organizations/{org}/environments/{env}/keyvaluemaps/{kvmName}:
+    get:
+      tags: [Key Value Maps]
+      summary: Get KVM details
+      operationId: getKeyValueMap
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: kvmName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: KVM details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeyValueMap'
+              example:
+                name: "config-settings"
+                encrypted: true
+                entry:
+                  - name: "backend_timeout"
+                    value: "5000"
+                  - name: "retry_count"
+                    value: "3"
+                  - name: "cache_ttl"
+                    value: "300"
+
+  /organizations/{org}/environments/{env}/keyvaluemaps/{kvmName}/entries/{entryName}:
+    get:
+      tags: [Key Value Maps]
+      summary: Get specific KVM entry
+      operationId: getKeyValueMapEntry
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: kvmName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entryName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: KVM entry value
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+              example:
+                name: "backend_timeout"
+                value: "5000"
+
+  # ========== CACHES ==========
+  /organizations/{org}/environments/{env}/caches:
+    get:
+      tags: [Caches]
+      summary: List caches in environment
+      operationId: listCaches
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of cache names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["response-cache", "token-cache", "oauth-cache"]
+
+  /organizations/{org}/environments/{env}/caches/{cacheName}:
+    get:
+      tags: [Caches]
+      summary: Get cache details
+      operationId: getCache
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: cacheName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cache configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cache'
+              example:
+                name: "response-cache"
+                description: "Cache for API responses"
+                expirySettings:
+                  timeoutInSec:
+                    value: "300"
+                  valuesNull: false
+                overflowToDisk: false
+                skipCacheIfElementSizeInKBExceeds: "512"
+                distributed: true
+
+  # ========== KEYSTORES ==========
+  /organizations/{org}/environments/{env}/keystores:
+    get:
+      tags: [Keystores]
+      summary: List keystores in environment
+      operationId: listKeystores
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of keystore names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["my-keystore", "my-truststore", "gateway-keystore"]
+
+  /organizations/{org}/environments/{env}/keystores/{keystoreName}:
+    get:
+      tags: [Keystores]
+      summary: Get keystore details
+      operationId: getKeystore
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: keystoreName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Keystore details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Keystore'
+              example:
+                name: "my-keystore"
+                aliases: ["server-cert", "client-cert", "intermediate-cert"]
+                certs: ["server-cert", "client-cert", "intermediate-cert"]
+
+  /organizations/{org}/environments/{env}/keystores/{keystoreName}/aliases/{aliasName}:
+    get:
+      tags: [Keystores]
+      summary: Get certificate/alias details
+      operationId: getKeystoreAlias
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: keystoreName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: aliasName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Certificate details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+              example:
+                alias: "server-cert"
+                type: "keycert"
+                format: "pem"
+                certificate: "-----BEGIN CERTIFICATE-----\nMIIDXTCCAkWgAwIBAgIJALi...\n-----END CERTIFICATE-----"
+                chainInfo:
+                  - subject: "CN=api.example.com,O=Example Corp,C=US"
+                    issuer: "CN=Example Intermediate CA,O=Example Corp,C=US"
+                    notBefore: "2023-01-01T00:00:00Z"
+                    notAfter: "2025-12-31T23:59:59Z"
+                    serialNumber: "1234567890"
+
+  # ========== REFERENCES ==========
+  /organizations/{org}/environments/{env}/references:
+    get:
+      tags: [References]
+      summary: List references in environment
+      operationId: listReferences
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of reference names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["my-keystore-ref", "my-truststore-ref", "shared-keystore-ref"]
+
+  /organizations/{org}/environments/{env}/references/{refName}:
+    get:
+      tags: [References]
+      summary: Get reference details
+      operationId: getReference
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: refName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reference details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reference'
+              example:
+                name: "my-keystore-ref"
+                refers: "my-keystore"
+                resourceType: "KeyStore"
+
+  # ========== VIRTUAL HOSTS ==========
+  /organizations/{org}/environments/{env}/virtualhosts:
+    get:
+      tags: [Virtual Hosts]
+      summary: List virtual hosts
+      operationId: listVirtualHosts
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of virtual host names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["default", "secure", "internal"]
+
+  /organizations/{org}/environments/{env}/virtualhosts/{vhName}:
+    get:
+      tags: [Virtual Hosts]
+      summary: Get virtual host details
+      operationId: getVirtualHost
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: vhName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Virtual host configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualHost'
+              example:
+                name: "secure"
+                hostAliases: ["api.example.com", "secure.example.com"]
+                interfaces: []
+                port: "443"
+                baseUrl: "https://api.example.com"
+                sSLInfo:
+                  enabled: true
+                  keyStore: "ref://my-keystore-ref"
+                  keyAlias: "server-cert"
+                  trustStore: "ref://my-truststore-ref"
+                  clientAuthEnabled: false
+
+  # ========== SHARED FLOWS ==========
+  /organizations/{org}/sharedflows:
+    get:
+      tags: [Shared Flows]
+      summary: List shared flows
+      operationId: listSharedFlows
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of shared flow names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["oauth-v2", "spike-arrest", "quota"]
+
+  /organizations/{org}/sharedflows/{sharedflowName}:
+    get:
+      tags: [Shared Flows]
+      summary: Get shared flow details
+      operationId: getSharedFlow
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: sharedflowName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Shared flow details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  revision:
+                    type: array
+                    items:
+                      type: string
+              example:
+                name: "oauth-v2"
+                revision: ["1", "2", "3"]
+
+  # ========== FLOW HOOKS ==========
+  /organizations/{org}/environments/{env}/flowhooks:
+    get:
+      tags: [Flow Hooks]
+      summary: List flow hooks
+      operationId: listFlowHooks
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Flow hook configurations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PreProxyFlowHook:
+                    type: object
+                  PostProxyFlowHook:
+                    type: object
+              example:
+                PreProxyFlowHook:
+                  sharedFlow: "spike-arrest"
+                  continueOnError: true
+                PostProxyFlowHook:
+                  sharedFlow: "analytics"
+
+  # ========== ANALYTICS ==========
+  /organizations/{org}/environments/{env}/stats/{dimension}:
+    get:
+      tags: [Analytics]
+      summary: Get analytics data
+      operationId: getAnalytics
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: dimension
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [apis, api_products, developers, apps]
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: timeRange
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: timeUnit
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Analytics data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  environments:
+                    type: array
+                    items:
+                      type: object
+              example:
+                environments:
+                  - name: "test"
+                    dimensions:
+                      - name: "customer-api-v1"
+                        metrics:
+                          - name: "total_response_time"
+                            values:
+                              - "45.67"
+                          - name: "total_requests"
+                            values:
+                              - "12345"
+
+  # ========== USER ROLES ==========
+  /organizations/{org}/userroles:
+    get:
+      tags: [User Roles]
+      summary: List user roles
+      operationId: listUserRoles
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of user roles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["orgadmin", "ops", "businessuser", "apiproductadmin"]
+
+  /organizations/{org}/userroles/{roleName}/permissions:
+    get:
+      tags: [User Roles]
+      summary: Get role permissions
+      operationId: getRolePermissions
+      parameters:
+        - name: org
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: roleName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Role permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  path:
+                    type: string
+                  permissions:
+                    type: array
+                    items:
+                      type: string
+              example:
+                - path: "/"
+                  permissions: ["get", "put", "delete"]
+                - path: "/environments/test"
+                  permissions: ["get"]
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        status:
+          type: string
+      example:
+        code: "UNAUTHORIZED"
+        message: "Invalid OAuth token"
+        status: "401"
+
+    Organization:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+          enum: [trial, paid, enterprise]
+        createdAt:
+          type: integer
+          format: int64
+        createdBy:
+          type: string
+        lastModifiedAt:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+        environments:
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          properties:
+            property:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+
+    Environment:
+      type: object
+      properties:
+        name:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        createdBy:
+          type: string
+        lastModifiedAt:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+        properties:
+          type: object
+          properties:
+            property:
+              type: array
+              items:
+                $ref: '#/components/schemas/Property'
+
+    Property:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+
+    ApiProxy:
+      type: object
+      properties:
+        name:
+          type: string
+        revision:
+          type: array
+          items:
+            type: string
+        metaData:
+          type: object
+          properties:
+            createdAt:
+              type: integer
+              format: int64
+            createdBy:
+              type: string
+            lastModifiedAt:
+              type: integer
+              format: int64
+            lastModifiedBy:
+              type: string
+        type:
+          type: string
+          enum: [Application, Configuration]
+
+    Deployment:
+      type: object
+      properties:
+        environment:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              revision:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    state:
+                      type: string
+                      enum: [deployed, error, undeployed]
+                    server:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                          type:
+                            type: string
+                          uUID:
+                            type: string
+        name:
+          type: string
+        organization:
+          type: string
+
+    ApiProduct:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        approvalType:
+          type: string
+          enum: [auto, manual]
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        environments:
+          type: array
+          items:
+            type: string
+        proxies:
+          type: array
+          items:
+            type: string
+        quota:
+          type: string
+        quotaInterval:
+          type: string
+        quotaTimeUnit:
+          type: string
+          enum: [minute, hour, day, month]
+        scopes:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+
+    ApiProductList:
+      type: object
+      properties:
+        apiProduct:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiProduct'
+
+    Attribute:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+
+    DeveloperApp:
+      type: object
+      properties:
+        appId:
+          type: string
+        name:
+          type: string
+        accessType:
+          type: string
+        appFamily:
+          type: string
+        callbackUrl:
+          type: string
+        developerId:
+          type: string
+        status:
+          type: string
+          enum: [approved, revoked, pending]
+        credentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Credential'
+        createdAt:
+          type: integer
+          format: int64
+        createdBy:
+          type: string
+        lastModifiedAt:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+
+    DeveloperAppList:
+      type: object
+      properties:
+        app:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeveloperApp'
+
+    Credential:
+      type: object
+      properties:
+        consumerKey:
+          type: string
+        consumerSecret:
+          type: string
+        expiresAt:
+          type: integer
+          format: int64
+        issuedAt:
+          type: integer
+          format: int64
+        status:
+          type: string
+        apiProducts:
+          type: array
+          items:
+            type: object
+            properties:
+              apiproduct:
+                type: string
+              status:
+                type: string
+
+    Developer:
+      type: object
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        userName:
+          type: string
+        status:
+          type: string
+        apps:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+
+    DeveloperList:
+      type: object
+      properties:
+        developer:
+          type: array
+          items:
+            $ref: '#/components/schemas/Developer'
+
+    TargetServer:
+      type: object
+      properties:
+        name:
+          type: string
+        host:
+          type: string
+        port:
+          type: integer
+        isEnabled:
+          type: boolean
+        sSLInfo:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            clientAuthEnabled:
+              type: boolean
+            keyStore:
+              type: string
+            keyAlias:
+              type: string
+            trustStore:
+              type: string
+            ignoreValidationErrors:
+              type: boolean
+            ciphers:
+              type: array
+              items:
+                type: string
+            protocols:
+              type: array
+              items:
+                type: string
+
+    KeyValueMap:
+      type: object
+      properties:
+        name:
+          type: string
+        encrypted:
+          type: boolean
+        entry:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+
+    Cache:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        expirySettings:
+          type: object
+          properties:
+            timeoutInSec:
+              type: object
+              properties:
+                value:
+                  type: string
+            timeOfDay:
+              type: object
+              properties:
+                value:
+                  type: string
+            expiryDate:
+              type: object
+              properties:
+                value:
+                  type: string
+            valuesNull:
+              type: boolean
+        overflowToDisk:
+          type: boolean
+        skipCacheIfElementSizeInKBExceeds:
+          type: string
+        distributed:
+          type: boolean
+        compression:
+          type: object
+          properties:
+            minimumSizeInKB:
+              type: integer
+
+    Keystore:
+      type: object
+      properties:
+        name:
+          type: string
+        aliases:
+          type: array
+          items:
+            type: string
+        certs:
+          type: array
+          items:
+            type: string
+
+    Certificate:
+      type: object
+      properties:
+        alias:
+          type: string
+        type:
+          type: string
+          enum: [keycert, cert]
+        format:
+          type: string
+          enum: [pem, jks, pkcs12]
+        certificate:
+          type: string
+        chainInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              subject:
+                type: string
+              issuer:
+                type: string
+              notBefore:
+                type: string
+                format: date-time
+              notAfter:
+                type: string
+                format: date-time
+              serialNumber:
+                type: string
+
+    Reference:
+      type: object
+      properties:
+        name:
+          type: string
+        refers:
+          type: string
+        resourceType:
+          type: string
+          enum: [KeyStore, TrustStore]
+
+    VirtualHost:
+      type: object
+      properties:
+        name:
+          type: string
+        hostAliases:
+          type: array
+          items:
+            type: string
+        interfaces:
+          type: array
+          items:
+            type: string
+        port:
+          type: string
+        baseUrl:
+          type: string
+        sSLInfo:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            keyStore:
+              type: string
+            keyAlias:
+              type: string
+            trustStore:
+              type: string
+            clientAuthEnabled:
+              type: boolean
+            ciphers:
+              type: array
+              items:
+                type: string
+            protocols:
+              type: array
+              items:
+                type: string
+        properties:
+          type: object
+          properties:
+            property:
+              type: array
+              items:
+                $ref: '#/components/schemas/Property'
+
+tags:
+  - name: Organizations
+    description: Organization management
+  - name: Environments
+    description: Environment configuration
+  - name: API Proxies
+    description: API proxy lifecycle management
+  - name: API Products
+    description: API product definitions
+  - name: Developer Apps
+    description: Developer application management
+  - name: Developers
+    description: Developer management
+  - name: Target Servers
+    description: Backend target server configuration
+  - name: Key Value Maps
+    description: Key-Value Map storage
+  - name: Caches
+    description: Cache configuration
+  - name: Keystores
+    description: SSL/TLS certificate management
+  - name: References
+    description: Resource references
+  - name: Virtual Hosts
+    description: Virtual host configuration
+  - name: Shared Flows
+    description: Shared flow management
+  - name: Flow Hooks
+    description: Flow hook configuration
+  - name: Analytics
+    description: Analytics and metrics
+  - name: User Roles
+    description: User role and permission management

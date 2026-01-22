@@ -1,0 +1,27 @@
+{
+  "list": ["mock-org"],
+  "organizations": [
+    {
+      "name": "mock-org",
+      "displayName": "Mock Organization",
+      "type": "paid",
+      "createdAt": 1640000000000,
+      "createdBy": "admin@mock.com",
+      "lastModifiedAt": 1700000000000,
+      "lastModifiedBy": "admin@mock.com",
+      "environments": ["dev", "staging"],
+      "properties": {
+        "property": [
+          {
+            "name": "features.hybrid.enabled",
+            "value": "false"
+          },
+          {
+            "name": "features.mart.connect.enabled",
+            "value": "true"
+          }
+        ]
+      }
+    }
+  ]
+}

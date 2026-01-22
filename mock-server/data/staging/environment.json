@@ -1,0 +1,19 @@
+{
+  "name": "staging",
+  "createdAt": 1640000000000,
+  "createdBy": "admin@mock.com",
+  "lastModifiedAt": 1700000000000,
+  "lastModifiedBy": "admin@mock.com",
+  "properties": {
+    "property": [
+      {
+        "name": "analytics.enabled",
+        "value": "true"
+      },
+      {
+        "name": "region",
+        "value": "us-west-2"
+      }
+    ]
+  }
+}

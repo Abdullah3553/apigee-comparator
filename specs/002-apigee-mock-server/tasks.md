@@ -130,8 +130,8 @@ This project uses a monorepo structure with a new `mock-server/` directory at th
 
 #### Expand Mock Data with Differences
 
-- [ ] T048 [P] [US2] Expand dev apps.json to 6 apps with 1 different config, 2 dev-only in mock-server/data/dev/apps.json
-- [ ] T049 [P] [US2] Expand staging apps.json to 5 apps with 1 staging-only in mock-server/data/staging/apps.json
+- [X] T048 [P] [US2] Expand dev apps.json to 6 apps with 1 different config, 2 dev-only in mock-server/data/dev/apps.json
+- [X] T049 [P] [US2] Expand staging apps.json to 5 apps with 1 staging-only in mock-server/data/staging/apps.json
 - [ ] T050 [P] [US2] Expand dev apiProducts.json to 5 products with 2 different configs in mock-server/data/dev/apiProducts.json
 - [ ] T051 [P] [US2] Expand staging apiProducts.json to 5 products matching diff pattern in mock-server/data/staging/apiProducts.json
 - [ ] T052 [P] [US2] Expand dev apiProxies.json to 7 proxies with 1 different, 2 dev-only in mock-server/data/dev/apiProxies.json

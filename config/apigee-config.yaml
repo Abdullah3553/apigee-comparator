@@ -1,5 +1,11 @@
 # Apigee Instance Configuration
 # This file defines the Apigee instances, organizations, and environments to monitor
+#
+# MOCK SERVICE MODE:
+# When USE_MOCK_SERVICE=true in .env, ALL instances will be redirected to the mock server.
+# This allows testing without real Apigee access while keeping your instance configurations.
+#
+# When USE_MOCK_SERVICE=false (default), each instance uses its configured management_url.
 
 instances:
   # Production Instance
@@ -25,13 +31,15 @@ instances:
   #     - "dev"
   #     - "qa"
 
-  # Mock Server Instance (for local development without Apigee access)
+  # Mock Server Instance
+  # Use this instance directly when USE_MOCK_SERVICE=false but you want to test with mock data
+  # Or set USE_MOCK_SERVICE=true to redirect ALL instances to the mock server
   - name: "MOCK"
     management_url: "http://localhost:8080/v1"
     org: "mock-org"
     credentials:
-      username: "mock"
-      password: "mock"
+      username: "${APIGEE_MOCK_USERNAME}"
+      password: "${APIGEE_MOCK_PASSWORD}"
     environments:
       - "dev"
       - "staging"
@@ -41,3 +49,7 @@ instances:
 # - Environment variable pattern: APIGEE_{INSTANCE_NAME}_USERNAME/PASSWORD
 # - Each environment will be uniquely identified as: INSTANCE-ORG-ENV
 # - Example identifier: PROD-your-prod-org-name-production
+#
+# Mock Service Quick Reference:
+# - To use mock data: Set USE_MOCK_SERVICE=true in .env and run: docker-compose --profile mock up
+# - To use live data: Set USE_MOCK_SERVICE=false in .env (or remove it)

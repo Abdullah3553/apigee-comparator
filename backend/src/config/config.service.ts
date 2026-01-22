@@ -21,10 +21,18 @@ export interface ApigeeConfig {
   instances: ApigeeInstanceConfig[];
 }
 
+export interface MockServiceConfig {
+  enabled: boolean;
+  url: string;
+  username: string;
+  password: string;
+}
+
 @Injectable()
 export class ConfigService implements OnModuleInit {
   private readonly logger = new Logger(ConfigService.name);
   private config: ApigeeConfig;
+  private mockConfig: MockServiceConfig;
 
   constructor(
     private nestConfigService: NestConfigService,
@@ -32,11 +40,24 @@ export class ConfigService implements OnModuleInit {
     private instanceRepository: Repository<Instance>,
     @InjectRepository(Environment)
     private environmentRepository: Repository<Environment>,
-  ) {}
+  ) {
+    this.mockConfig = {
+      enabled: this.nestConfigService.get<string>('USE_MOCK_SERVICE', 'false') === 'true',
+      url: this.nestConfigService.get<string>('MOCK_SERVER_URL', 'http://localhost:8080/v1'),
+      username: this.nestConfigService.get<string>('MOCK_AUTH_USERNAME', 'mock'),
+      password: this.nestConfigService.get<string>('MOCK_AUTH_PASSWORD', 'mock'),
+    };
+  }
 
   async onModuleInit() {
     await this.loadConfig();
     await this.seedEnvironments();
+
+    if (this.mockConfig.enabled) {
+      this.logger.log('Mock service mode is ENABLED - using mock server at: ' + this.mockConfig.url);
+    } else {
+      this.logger.log('Mock service mode is DISABLED - using live Apigee API');
+    }
   }
 
   private loadConfig() {
@@ -113,7 +134,29 @@ export class ConfigService implements OnModuleInit {
   }
 
   getInstanceConfig(instanceName: string): ApigeeInstanceConfig | undefined {
-    return this.config.instances.find((i) => i.name === instanceName);
+    const instance = this.config.instances.find((i) => i.name === instanceName);
+
+    // If mock mode is enabled, override the instance config to use mock server
+    if (this.mockConfig.enabled && instance) {
+      return {
+        ...instance,
+        management_url: this.mockConfig.url,
+        credentials: {
+          username: this.mockConfig.username,
+          password: this.mockConfig.password,
+        },
+      };
+    }
+
+    return instance;
+  }
+
+  isMockServiceEnabled(): boolean {
+    return this.mockConfig.enabled;
+  }
+
+  getMockServiceConfig(): MockServiceConfig {
+    return this.mockConfig;
   }
 
   async getEnvironments(): Promise<Environment[]> {

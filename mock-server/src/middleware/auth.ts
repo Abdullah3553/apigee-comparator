@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
-const VALID_USERNAME = 'mock';
-const VALID_PASSWORD = 'mock';
+const VALID_USERNAME = process.env.MOCK_AUTH_USERNAME || 'mock';
+const VALID_PASSWORD = process.env.MOCK_AUTH_PASSWORD || 'mock';
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction): void {
   // Skip auth for health check endpoint

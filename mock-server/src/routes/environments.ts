@@ -22,7 +22,31 @@ interface OrganizationsData {
   }>;
 }
 
-// GET /v1/organizations/:org/environments - List environments
+/**
+ * @openapi
+ * /v1/organizations/{org}/environments:
+ *   get:
+ *     tags:
+ *       - Environments
+ *     summary: List environments
+ *     parameters:
+ *       - in: path
+ *         name: org
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: mock-org
+ *     responses:
+ *       200:
+ *         description: List of environment names
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               example: ["dev", "staging"]
+ */
 router.get('/', (req: Request, res: Response) => {
   const { org } = req.params;
   const data = loadData<OrganizationsData>('organizations.json');
@@ -35,7 +59,34 @@ router.get('/', (req: Request, res: Response) => {
   res.json(organization.environments);
 });
 
-// GET /v1/organizations/:org/environments/:env - Get environment details
+/**
+ * @openapi
+ * /v1/organizations/{org}/environments/{env}:
+ *   get:
+ *     tags:
+ *       - Environments
+ *     summary: Get environment details
+ *     parameters:
+ *       - in: path
+ *         name: org
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: mock-org
+ *       - in: path
+ *         name: env
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: dev
+ *     responses:
+ *       200:
+ *         description: Environment details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Environment'
+ */
 router.get('/:env', (req: Request, res: Response) => {
   const { org, env } = req.params;
   const data = loadData<OrganizationsData>('organizations.json');

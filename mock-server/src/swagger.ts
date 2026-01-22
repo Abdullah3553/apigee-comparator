@@ -1,4 +1,5 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+import { additionalPaths } from './swagger-paths';
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -104,4 +105,13 @@ const options: swaggerJsdoc.Options = {
   apis: ['./src/routes/*.ts', './src/index.ts']
 };
 
-export const swaggerSpec = swaggerJsdoc(options);
+const generatedSpec = swaggerJsdoc(options) as any;
+
+// Merge additional paths
+export const swaggerSpec = {
+  ...generatedSpec,
+  paths: {
+    ...(generatedSpec.paths || {}),
+    ...additionalPaths
+  }
+};

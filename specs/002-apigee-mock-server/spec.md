@@ -12,6 +12,8 @@
 - Q: What technology should be used to implement the mock server? → A: Express.js (TypeScript)
 - Q: How many mock entities should be provided per entity type? → A: 5-10 per type
 - Q: What logging approach should the mock server use? → A: Console logging with log levels (debug/info/error)
+- Q: How should the mock server handle authentication credentials? → A: Hardcoded credentials (mock/mock)
+- Q: What format should be used for mock data configuration files? → A: JSON only
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -96,12 +98,12 @@ As a developer, I want to customize the mock data through configuration files so
 - **FR-004**: Mock server MUST provide mock data for all 9 entity types (Apps, API Products, API Proxies, Caches, KVMs, Target Servers, References, Keystores, Virtual Hosts)
 - **FR-005**: Mock server MUST include entities with known differences between environments for comparison testing
 - **FR-006**: Mock server MUST include entities with issues (expired certs, revoked apps, undeployed proxies) for issue detection testing
-- **FR-007**: Mock server MUST support Basic Authentication matching the dashboard's auth method
+- **FR-007**: Mock server MUST support Basic Authentication with hardcoded credentials (username: `mock`, password: `mock`)
 - **FR-008**: Mock server MUST respond with appropriate HTTP status codes (200, 404, 401, etc.)
 - **FR-013**: Mock server MUST provide console logging with configurable log levels (debug/info/error) for request tracing and debugging
 - **FR-009**: Mock server MUST be startable as a standalone service via Docker Compose or npm script
 - **FR-010**: Mock server MUST use a separate port from the main backend to allow running alongside it
-- **FR-011**: Mock server MUST load mock data from configuration files (JSON or YAML)
+- **FR-011**: Mock server MUST load mock data from JSON configuration files
 - **FR-012**: Dashboard configuration MUST allow switching between real Apigee and mock server via environment variables
 
 ### Key Entities

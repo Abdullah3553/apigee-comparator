@@ -35,7 +35,18 @@
       "Bash(python3:*)",
       "Bash(done)",
       "Bash(timeout 3 npm start:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Skill(speckit.implement)",
+      "Skill(speckit.implement:*)",
+      "Bash(pkill:*)",
+      "Bash(sudo docker compose:*)",
+      "Bash(__NEW_LINE_28e1fe11b10a3e6f__ echo -e \"\\\\n\\\\n--- Step 2: Fetch DEV environment entities ---\")",
+      "Bash(__NEW_LINE_40dc6eb3c6f1852d__ echo -e \"\\\\nDEV Keystores:\")",
+      "Bash(__NEW_LINE_40dc6eb3c6f1852d__ echo -e \"\\\\n\\\\n--- Step 3: Fetch STAGING environment entities ---\")",
+      "Bash(__NEW_LINE_40dc6eb3c6f1852d__ echo -e \"\\\\n\\\\n--- Step 4: Compare DEV vs STAGING Keystores ---\")",
+      "Bash(__NEW_LINE_49a08154df2b30b4__ echo -e \"\\\\n2. DISABLED TARGET SERVER in DEV:\")",
+      "Bash(__NEW_LINE_62dcd10a73272d87__ echo -e \"\\\\n3. KEYSTORE WITH EXPIRED CERT in DEV:\")",
+      "Bash(__NEW_LINE_1b05954fea084105__ echo -e \"\\\\n4. KEYSTORE WITH EXPIRING-SOON CERT in STAGING:\")"
     ]
   }
 }

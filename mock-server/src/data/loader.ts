@@ -5,6 +5,10 @@ import { log } from '../middleware/logger';
 // Cache for loaded JSON data
 const dataCache = new Map<string, any>();
 
+// File watchers for hot-reload
+const watchers = new Map<string, fs.FSWatcher>();
+let watchEnabled = false;
+
 /**
  * Load JSON data from file with caching
  * @param relativePath Path relative to the data directory (e.g., 'dev/apps.json')
@@ -52,4 +56,49 @@ export function clearCache(): void {
 export function reloadData(relativePath: string): void {
   dataCache.delete(relativePath);
   log.debug(`Cache cleared for ${relativePath}`);
+}
+
+/**
+ * Enable hot-reload watching for all data files
+ */
+export function enableHotReload(): void {
+  if (watchEnabled) {
+    log.info('Hot-reload already enabled');
+    return;
+  }
+
+  const dataDir = path.join(__dirname, '../../data');
+
+  try {
+    // Watch the entire data directory recursively
+    const watcher = fs.watch(dataDir, { recursive: true }, (eventType, filename) => {
+      if (!filename || !filename.endsWith('.json')) {
+        return;
+      }
+
+      log.info(`Data file changed: ${filename} (${eventType})`);
+
+      // Clear the cache for the changed file
+      dataCache.delete(filename);
+      log.info(`Cache cleared for ${filename} - will reload on next request`);
+    });
+
+    watchers.set('data-directory', watcher);
+    watchEnabled = true;
+    log.info('Hot-reload enabled for mock data files');
+  } catch (error) {
+    log.error('Failed to enable hot-reload', error instanceof Error ? error : new Error(String(error)));
+  }
+}
+
+/**
+ * Disable hot-reload watching
+ */
+export function disableHotReload(): void {
+  watchers.forEach((watcher) => {
+    watcher.close();
+  });
+  watchers.clear();
+  watchEnabled = false;
+  log.info('Hot-reload disabled');
 }

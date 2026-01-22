@@ -4,7 +4,7 @@
   "description": "Mock server for Apigee Edge Management API",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts",
+    "dev": "NODE_ENV=development ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "jest",

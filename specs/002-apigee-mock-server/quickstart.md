@@ -210,16 +210,111 @@ data/
 ├── dev/                     # Dev environment data
 │   ├── apps.json
 │   ├── apiProducts.json
-│   └── ...
+│   ├── apiProxies.json
+│   ├── caches.json
+│   ├── kvms.json
+│   ├── targetServers.json
+│   ├── references.json
+│   ├── keystores.json
+│   └── virtualHosts.json
 └── staging/                 # Staging environment data
-    └── ...
+    └── [same structure]
 ```
 
-To add or modify mock entities:
+### Hot-Reload (Development Mode)
+
+When running in development mode (`npm run dev`), the mock server automatically watches for changes to JSON files and reloads them without requiring a restart:
+
+1. Edit any JSON file in `mock-server/data/`
+2. Save the file
+3. The server detects the change and clears the cache automatically
+4. Next API request will use the updated data
+
+**No restart needed!** This makes it easy to iterate on test scenarios.
+
+### Manual Reload (Production Mode)
+
+If running in production mode (`npm start`), you need to manually restart the server after changing data files:
 
 1. Edit the appropriate JSON file
-2. Restart the mock server (`npm run dev`)
+2. Restart the mock server
 3. Refresh the dashboard
+
+### Validating Your Changes
+
+Before starting the server, validate your JSON files for syntax errors:
+
+```bash
+cd mock-server
+npm run validate-data
+```
+
+This will check all `.json` files and report any syntax errors.
+
+### Example: Adding a New App
+
+To add a new app to the `dev` environment:
+
+1. Open `mock-server/data/dev/apps.json`
+2. Add a new app object to the `app` array:
+
+```json
+{
+  "appId": "12345678-1234-1234-1234-123456789abc",
+  "name": "my-new-app",
+  "accessType": "read",
+  "appFamily": "default",
+  "callbackUrl": "https://example.com/callback",
+  "developerId": "dev-123",
+  "status": "approved",
+  "credentials": [
+    {
+      "consumerKey": "AbCdEfGhIjKlMnOpQrStUvWxYz",
+      "consumerSecret": "1234567890abcdef",
+      "expiresAt": -1,
+      "issuedAt": 1705910400000,
+      "status": "approved",
+      "apiProducts": [
+        {
+          "apiproduct": "basic-api-product",
+          "status": "approved"
+        }
+      ]
+    }
+  ],
+  "createdAt": 1705910400000,
+  "createdBy": "admin@example.com",
+  "lastModifiedAt": 1705910400000,
+  "lastModifiedBy": "admin@example.com"
+}
+```
+
+3. Save the file
+4. If in dev mode, the change is detected automatically
+5. Refresh the dashboard to see the new app
+
+### Example: Adding an Issue Scenario
+
+To test certificate expiry detection, add a keystore with an expired certificate:
+
+1. Generate an expired certificate (or use existing `certs/expired.pem`)
+2. Open `mock-server/data/dev/keystores.json`
+3. Add a new keystore with an expired cert alias:
+
+```json
+{
+  "name": "test-expired-keystore",
+  "aliases": ["expired-cert"],
+  "certs": ["expired-cert"]
+}
+```
+
+4. Add the alias details to the `aliases` map in the same file
+5. The dashboard will now show the expiry warning for this keystore
+
+### Data File Structure Reference
+
+See [data-model.md](data-model.md) for complete entity schemas and field descriptions.
 
 ## Troubleshooting
 
@@ -251,6 +346,8 @@ MOCK_SERVER_PORT=9090 npm run dev
 |----------|---------|-------------|
 | `MOCK_SERVER_PORT` | `8080` | Port for mock server |
 | `LOG_LEVEL` | `info` | Logging level (debug, info, error) |
+| `ENABLE_HOT_RELOAD` | `false` (auto-enabled in `development`) | Enable automatic reloading of data files when changed |
+| `NODE_ENV` | `production` | Environment mode (set to `development` for hot-reload) |
 
 ## Next Steps
 

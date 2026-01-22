@@ -5,10 +5,12 @@ import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger';
 import { authMiddleware } from './middleware/auth';
 import { errorHandler } from './middleware/errorHandler';
+import { enableHotReload } from './data/loader';
 
 const app = express();
 const PORT = process.env.MOCK_SERVER_PORT || 8080;
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
+const ENABLE_HOT_RELOAD = process.env.ENABLE_HOT_RELOAD === 'true' || process.env.NODE_ENV === 'development';
 
 // Middleware
 app.use(cors());
@@ -80,6 +82,12 @@ if (require.main === module) {
     console.log(`[INFO] Log level: ${LOG_LEVEL}`);
     console.log(`[INFO] Authentication: Basic Auth (mock/mock)`);
     console.log(`[INFO] API Documentation: http://localhost:${PORT}/api-docs`);
+
+    // Enable hot-reload in development mode
+    if (ENABLE_HOT_RELOAD) {
+      enableHotReload();
+      console.log(`[INFO] Hot-reload enabled - mock data changes will be detected automatically`);
+    }
   });
 }
 

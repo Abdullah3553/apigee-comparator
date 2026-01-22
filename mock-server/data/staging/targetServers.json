@@ -21,6 +21,34 @@
       "host": "customer.staging.example.com",
       "port": 8443,
       "isEnabled": true
+    },
+    {
+      "name": "analytics-backend",
+      "host": "analytics.staging.example.com",
+      "port": 8443,
+      "isEnabled": true,
+      "sSLInfo": {
+        "enabled": true,
+        "clientAuthEnabled": true,
+        "keyStore": "ref://analytics-keystore",
+        "keyAlias": "analytics-cert",
+        "trustStore": "ref://analytics-truststore",
+        "ignoreValidationErrors": false,
+        "ciphers": ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"],
+        "protocols": ["TLSv1.2", "TLSv1.3"]
+      }
+    },
+    {
+      "name": "notification-backend",
+      "host": "notify.staging.example.com",
+      "port": 8080,
+      "isEnabled": true
+    },
+    {
+      "name": "legacy-backend",
+      "host": "old.staging.example.com",
+      "port": 8000,
+      "isEnabled": true
     }
   ]
 }

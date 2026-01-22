@@ -132,22 +132,22 @@ This project uses a monorepo structure with a new `mock-server/` directory at th
 
 - [X] T048 [P] [US2] Expand dev apps.json to 6 apps with 1 different config, 2 dev-only in mock-server/data/dev/apps.json
 - [X] T049 [P] [US2] Expand staging apps.json to 5 apps with 1 staging-only in mock-server/data/staging/apps.json
-- [ ] T050 [P] [US2] Expand dev apiProducts.json to 5 products with 2 different configs in mock-server/data/dev/apiProducts.json
-- [ ] T051 [P] [US2] Expand staging apiProducts.json to 5 products matching diff pattern in mock-server/data/staging/apiProducts.json
-- [ ] T052 [P] [US2] Expand dev apiProxies.json to 7 proxies with 1 different, 2 dev-only in mock-server/data/dev/apiProxies.json
-- [ ] T053 [P] [US2] Expand staging apiProxies.json to 6 proxies with 1 staging-only in mock-server/data/staging/apiProxies.json
-- [ ] T054 [P] [US2] Expand dev caches.json to 4 caches with 1 different config in mock-server/data/dev/caches.json
-- [ ] T055 [P] [US2] Expand staging caches.json to 4 caches matching diff pattern in mock-server/data/staging/caches.json
-- [ ] T056 [P] [US2] Expand dev kvms.json to 5 KVMs with 1 different, 2 dev-only in mock-server/data/dev/kvms.json
-- [ ] T057 [P] [US2] Expand staging kvms.json to 4 KVMs with 1 staging-only in mock-server/data/staging/kvms.json
-- [ ] T058 [P] [US2] Expand dev targetServers.json to 5 servers with 1 different config in mock-server/data/dev/targetServers.json
-- [ ] T059 [P] [US2] Expand staging targetServers.json to 5 servers matching diff pattern in mock-server/data/staging/targetServers.json
-- [ ] T060 [P] [US2] Expand dev references.json to 4 refs with 1 different config in mock-server/data/dev/references.json
-- [ ] T061 [P] [US2] Expand staging references.json to 4 refs matching diff pattern in mock-server/data/staging/references.json
-- [ ] T062 [P] [US2] Expand dev keystores.json to 5 keystores with 1 different, 2 dev-only in mock-server/data/dev/keystores.json
-- [ ] T063 [P] [US2] Expand staging keystores.json to 4 keystores with 1 staging-only in mock-server/data/staging/keystores.json
-- [ ] T064 [P] [US2] Expand dev virtualHosts.json to 3 vhosts with 1 different config in mock-server/data/dev/virtualHosts.json
-- [ ] T065 [P] [US2] Expand staging virtualHosts.json to 3 vhosts matching diff pattern in mock-server/data/staging/virtualHosts.json
+- [X] T050 [P] [US2] Expand dev apiProducts.json to 5 products with 2 different configs in mock-server/data/dev/apiProducts.json
+- [X] T051 [P] [US2] Expand staging apiProducts.json to 5 products matching diff pattern in mock-server/data/staging/apiProducts.json
+- [X] T052 [P] [US2] Expand dev apiProxies.json to 7 proxies with 1 different, 2 dev-only in mock-server/data/dev/apiProxies.json
+- [X] T053 [P] [US2] Expand staging apiProxies.json to 6 proxies with 1 staging-only in mock-server/data/staging/apiProxies.json
+- [X] T054 [P] [US2] Expand dev caches.json to 4 caches with 1 different config in mock-server/data/dev/caches.json
+- [X] T055 [P] [US2] Expand staging caches.json to 4 caches matching diff pattern in mock-server/data/staging/caches.json
+- [X] T056 [P] [US2] Expand dev kvms.json to 5 KVMs with 1 different, 2 dev-only in mock-server/data/dev/kvms.json
+- [X] T057 [P] [US2] Expand staging kvms.json to 4 KVMs with 1 staging-only in mock-server/data/staging/kvms.json
+- [X] T058 [P] [US2] Expand dev targetServers.json to 5 servers with 1 different config in mock-server/data/dev/targetServers.json
+- [X] T059 [P] [US2] Expand staging targetServers.json to 5 servers matching diff pattern in mock-server/data/staging/targetServers.json
+- [X] T060 [P] [US2] Expand dev references.json to 4 refs with 1 different config in mock-server/data/dev/references.json
+- [X] T061 [P] [US2] Expand staging references.json to 4 refs matching diff pattern in mock-server/data/staging/references.json
+- [X] T062 [P] [US2] Expand dev keystores.json to 5 keystores with 1 different, 2 dev-only in mock-server/data/dev/keystores.json
+- [X] T063 [P] [US2] Expand staging keystores.json to 4 keystores with 1 staging-only in mock-server/data/staging/keystores.json
+- [X] T064 [P] [US2] Expand dev virtualHosts.json to 3 vhosts with 1 different config in mock-server/data/dev/virtualHosts.json
+- [X] T065 [P] [US2] Expand staging virtualHosts.json to 3 vhosts matching diff pattern in mock-server/data/staging/virtualHosts.json
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work - comparison between dev/staging shows matched, different, and missing entities
 

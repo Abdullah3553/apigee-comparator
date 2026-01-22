@@ -35,6 +35,19 @@
       "properties": {
         "property": []
       }
+    },
+    {
+      "name": "legacy",
+      "hostAliases": ["legacy.dev.example.com", "old-api.dev.example.com"],
+      "interfaces": [],
+      "port": "80",
+      "baseUrl": "http://legacy.dev.example.com",
+      "properties": {
+        "property": [
+          { "name": "proxy_read_timeout", "value": "30" },
+          { "name": "deprecated", "value": "true" }
+        ]
+      }
     }
   ]
 }

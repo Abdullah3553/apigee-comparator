@@ -59,6 +59,54 @@
       "scopes": ["admin.read", "admin.write"],
       "createdAt": 1700200000000,
       "lastModifiedAt": 1700700000000
+    },
+    {
+      "name": "analytics-api-product",
+      "displayName": "Analytics API Product",
+      "description": "Provides access to analytics and reporting APIs",
+      "approvalType": "auto",
+      "attributes": [
+        {
+          "name": "access",
+          "value": "public"
+        },
+        {
+          "name": "tier",
+          "value": "standard"
+        }
+      ],
+      "environments": ["staging"],
+      "proxies": ["analytics-api-v1"],
+      "quota": "1000",
+      "quotaInterval": "1",
+      "quotaTimeUnit": "hour",
+      "scopes": ["analytics.read"],
+      "createdAt": 1700300000000,
+      "lastModifiedAt": 1700800000000
+    },
+    {
+      "name": "notification-api-product",
+      "displayName": "Notification API Product",
+      "description": "Email and SMS notification services",
+      "approvalType": "manual",
+      "attributes": [
+        {
+          "name": "access",
+          "value": "internal"
+        },
+        {
+          "name": "cost",
+          "value": "medium"
+        }
+      ],
+      "environments": ["staging"],
+      "proxies": ["notification-api-v1", "notification-api-v2"],
+      "quota": "1000",
+      "quotaInterval": "1",
+      "quotaTimeUnit": "hour",
+      "scopes": ["notifications.send"],
+      "createdAt": 1700400000000,
+      "lastModifiedAt": 1700900000000
     }
   ]
 }

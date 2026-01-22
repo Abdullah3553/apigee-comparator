@@ -35,6 +35,19 @@
       "properties": {
         "property": []
       }
+    },
+    {
+      "name": "legacy",
+      "hostAliases": ["legacy.staging.example.com", "old-api.staging.example.com"],
+      "interfaces": [],
+      "port": "80",
+      "baseUrl": "http://legacy.staging.example.com",
+      "properties": {
+        "property": [
+          { "name": "proxy_read_timeout", "value": "60" },
+          { "name": "deprecated", "value": "true" }
+        ]
+      }
     }
   ]
 }

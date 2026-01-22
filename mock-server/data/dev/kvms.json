@@ -16,6 +16,32 @@
         { "name": "stripe_key", "value": "****" },
         { "name": "twilio_key", "value": "****" }
       ]
+    },
+    {
+      "name": "service-endpoints",
+      "encrypted": false,
+      "entry": [
+        { "name": "payment_service_url", "value": "https://payments.dev.example.com" },
+        { "name": "notification_service_url", "value": "https://notify.dev.example.com" },
+        { "name": "analytics_service_url", "value": "https://analytics.dev.example.com" }
+      ]
+    },
+    {
+      "name": "rate-limits",
+      "encrypted": false,
+      "entry": [
+        { "name": "default_rps", "value": "100" },
+        { "name": "premium_rps", "value": "500" },
+        { "name": "burst_limit", "value": "200" }
+      ]
+    },
+    {
+      "name": "dev-secrets",
+      "encrypted": true,
+      "entry": [
+        { "name": "test_db_password", "value": "****" },
+        { "name": "mock_jwt_secret", "value": "****" }
+      ]
     }
   ]
 }

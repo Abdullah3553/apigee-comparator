@@ -9,6 +9,16 @@
       "name": "api-gateway-truststore",
       "refers": "api-gateway-trust",
       "resourceType": "TrustStore"
+    },
+    {
+      "name": "analytics-keystore",
+      "refers": "analytics-certs",
+      "resourceType": "KeyStore"
+    },
+    {
+      "name": "analytics-truststore",
+      "refers": "analytics-trust",
+      "resourceType": "TrustStore"
     }
   ]
 }

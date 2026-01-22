@@ -32,6 +32,61 @@
         "lastModifiedBy": "dev@mock.com"
       },
       "type": "Application"
+    },
+    {
+      "name": "admin-api-v1",
+      "revision": ["1", "2"],
+      "metaData": {
+        "createdAt": 1700300000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1700800000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "analytics-api-v1",
+      "revision": ["1", "2"],
+      "metaData": {
+        "createdAt": 1700400000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1700850000000,
+        "lastModifiedBy": "admin@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "notification-api-v1",
+      "revision": ["1"],
+      "metaData": {
+        "createdAt": 1700500000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1701000000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "notification-api-v2",
+      "revision": ["1", "2"],
+      "metaData": {
+        "createdAt": 1700600000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1701100000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "production-backup-proxy",
+      "revision": ["1"],
+      "metaData": {
+        "createdAt": 1700900000000,
+        "createdBy": "ops@mock.com",
+        "lastModifiedAt": 1701400000000,
+        "lastModifiedBy": "ops@mock.com"
+      },
+      "type": "Application"
     }
   ],
   "deployments": [
@@ -94,6 +149,116 @@
                   "status": "deployed",
                   "type": "message-processor",
                   "uUID": "server-103"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "admin-api-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "staging",
+          "revision": [
+            {
+              "name": "2",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-104"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "analytics-api-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "staging",
+          "revision": [
+            {
+              "name": "1",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-105"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notification-api-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "staging",
+          "revision": [
+            {
+              "name": "1",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-106"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notification-api-v2",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "staging",
+          "revision": [
+            {
+              "name": "2",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-107"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "production-backup-proxy",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "staging",
+          "revision": [
+            {
+              "name": "1",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-108"
                 }
               ]
             }

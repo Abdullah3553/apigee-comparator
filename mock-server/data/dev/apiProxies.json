@@ -32,6 +32,72 @@
         "lastModifiedBy": "dev@mock.com"
       },
       "type": "Application"
+    },
+    {
+      "name": "admin-api-v1",
+      "revision": ["1", "2"],
+      "metaData": {
+        "createdAt": 1700300000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1700800000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "analytics-api-v1",
+      "revision": ["1", "2", "3"],
+      "metaData": {
+        "createdAt": 1700400000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1700900000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "notification-api-v1",
+      "revision": ["1"],
+      "metaData": {
+        "createdAt": 1700500000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1701000000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "notification-api-v2",
+      "revision": ["1", "2"],
+      "metaData": {
+        "createdAt": 1700600000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1701100000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "dev-test-proxy",
+      "revision": ["1"],
+      "metaData": {
+        "createdAt": 1700700000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1701200000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
+    },
+    {
+      "name": "experimental-feature-v1",
+      "revision": ["1", "2"],
+      "metaData": {
+        "createdAt": 1700800000000,
+        "createdBy": "dev@mock.com",
+        "lastModifiedAt": 1701300000000,
+        "lastModifiedBy": "dev@mock.com"
+      },
+      "type": "Application"
     }
   ],
   "deployments": [
@@ -94,6 +160,138 @@
                   "status": "deployed",
                   "type": "message-processor",
                   "uUID": "server-003"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "admin-api-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "dev",
+          "revision": [
+            {
+              "name": "2",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-004"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "analytics-api-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "dev",
+          "revision": [
+            {
+              "name": "2",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-005"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notification-api-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "dev",
+          "revision": [
+            {
+              "name": "1",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-006"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notification-api-v2",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "dev",
+          "revision": [
+            {
+              "name": "2",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-007"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dev-test-proxy",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "dev",
+          "revision": [
+            {
+              "name": "1",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-008"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "experimental-feature-v1",
+      "organization": "mock-org",
+      "environment": [
+        {
+          "name": "dev",
+          "revision": [
+            {
+              "name": "2",
+              "state": "deployed",
+              "server": [
+                {
+                  "status": "deployed",
+                  "type": "message-processor",
+                  "uUID": "server-009"
                 }
               ]
             }

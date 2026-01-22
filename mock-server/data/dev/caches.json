@@ -23,6 +23,30 @@
       "skipCacheIfElementSizeInKBExceeds": "512",
       "distributed": true,
       "compression": { "minimumSizeInKB": 256 }
+    },
+    {
+      "name": "token-cache",
+      "description": "OAuth token cache",
+      "expirySettings": {
+        "timeoutInSec": { "value": "7200" },
+        "valuesNull": false
+      },
+      "overflowToDisk": true,
+      "skipCacheIfElementSizeInKBExceeds": "128",
+      "distributed": true,
+      "compression": { "minimumSizeInKB": 64 }
+    },
+    {
+      "name": "metadata-cache",
+      "description": "API metadata cache",
+      "expirySettings": {
+        "timeoutInSec": { "value": "86400" },
+        "valuesNull": false
+      },
+      "overflowToDisk": false,
+      "skipCacheIfElementSizeInKBExceeds": "1024",
+      "distributed": true,
+      "compression": { "minimumSizeInKB": 512 }
     }
   ]
 }

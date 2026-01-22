@@ -15,7 +15,7 @@ import * as entities from './entities';
         password: configService.get('DB_PASSWORD', 'postgres'),
         database: configService.get('DB_NAME', 'apigee_monitor'),
         entities: Object.values(entities),
-        synchronize: false,
+        synchronize: configService.get('NODE_ENV') === 'development',
         logging: configService.get('NODE_ENV') === 'development',
       }),
       inject: [ConfigService],

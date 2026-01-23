@@ -46,7 +46,18 @@
       "Bash(__NEW_LINE_40dc6eb3c6f1852d__ echo -e \"\\\\n\\\\n--- Step 4: Compare DEV vs STAGING Keystores ---\")",
       "Bash(__NEW_LINE_49a08154df2b30b4__ echo -e \"\\\\n2. DISABLED TARGET SERVER in DEV:\")",
       "Bash(__NEW_LINE_62dcd10a73272d87__ echo -e \"\\\\n3. KEYSTORE WITH EXPIRED CERT in DEV:\")",
-      "Bash(__NEW_LINE_1b05954fea084105__ echo -e \"\\\\n4. KEYSTORE WITH EXPIRING-SOON CERT in STAGING:\")"
+      "Bash(__NEW_LINE_1b05954fea084105__ echo -e \"\\\\n4. KEYSTORE WITH EXPIRING-SOON CERT in STAGING:\")",
+      "Bash(if [ -d \"/home/uni/vscode/apigee-comparator/specs/001-apigee-monitor-dashboard/checklists\" ])",
+      "Bash(then ls -1 \"/home/uni/vscode/apigee-comparator/specs/001-apigee-monitor-dashboard/checklists\"/*.md)",
+      "Bash(else echo \"0\")",
+      "Bash(fi)",
+      "Bash(docker-compose config:*)",
+      "Bash(npm run test)",
+      "Bash(git -C /home/uni/vscode/apigee-comparator log --oneline -20)",
+      "Bash(git push:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)"
     ]
   }
 }
